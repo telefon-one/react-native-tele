@@ -2,7 +2,7 @@
   "name": "recat-native-tele",
   "main": "index.js",
   "description": "Telecommunication module for React Native",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/telefon-one/react-native-tele.git"
