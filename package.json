@@ -1,13 +1,16 @@
 {
   "name": "recat-native-tele",
   "main": "index.js",
-  "description": "Telecommunication module",
+  "description": "Telecommunication module for React Native",
   "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/telefon-one/react-native-tele.git"
   },
-  "author": "Anton Dodonov",
+  "author": {
+    "name":"Anton Dodonov",
+    "email":"cpodimas@gmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/telefon-one/react-native-tele/issues"
