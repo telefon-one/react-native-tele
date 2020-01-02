@@ -1,7 +1,7 @@
 {
   "name": "recat-native-tele",
   "main": "index.js",
-  "description": "Telecommunication module for React Native",
+  "description": "Telecommunication module based on InCall JavaService for React Native",
   "version": "0.0.2",
   "repository": {
     "type": "git",
