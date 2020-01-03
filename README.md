@@ -20,7 +20,9 @@
 
 ## Examples
 
-- [Android](https://github.com/telefon-one/react-native-tele/blob/master/examples/) 
+- [Android]Simple example (https://github.com/telefon-one/react-native-tele/blob/master/examples/) 
+- [Android]Dialer replacement (https://github.com/telefon-one/react-native-dialer-replacement) 
+
 - [Google.Play] TODO
 
 

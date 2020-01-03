@@ -1,0 +1,236 @@
+
+
+
+
+
+/*
+ * @Override public void onConnectionEvent(Call call, String event, Bundle
+ * extras) { Log.d(LOG_TAG, "onConnectionEvent"); super.onConnectionEvent(call,
+ * event, extras); sendHeadless("TeleService","onConnectionEvent_"+event); }
+ */
+// private Call OngoingCall;
+
+/*
+ * 
+ * 
+ * 
+ * // Override // public void onCallAudioStateChanged(CallAudioState
+ * callAudioState) {
+ * 
+ * // Override // public void onConnectionEvent /* public void
+ * onHandoverFailed(String callId, int error) {
+ * mHandler.obtainMessage(MSG_ON_HANDOVER_FAILED, error, 0,
+ * callId).sendToTarget(); } Override public void onHandoverComplete(String
+ * callId) { mHandler.obtainMessage(MSG_ON_HANDOVER_COMPLETE,
+ * callId).sendToTarget(); }
+ * 
+ * 
+ * 
+ */
+
+/*
+ * Исходящий LOG Rec {"action": "new_outgoing_call"} LOG Rec {"action":
+ * "phone_state", "incoming_call": false, "state": "extra_state_offhook"} LOG
+ * Rec {"action": "phone_state", "incoming_call": false, "state":
+ * "extra_state_idle"}
+ * 
+ * нет события поднятой трубки. Входящий -> RINGING LOG Rec {"action":
+ * "phone_state", "incoming_call": true, "number": null, "state":
+ * "extra_state_ringing"} -> ПОДНЯЛ LOG Rec {"action": "phone_state",
+ * "incoming_call": false, "state": "extra_state_offhook"} -> ПОВЕСИЛ LOG Rec
+ * {"action": "phone_state", "incoming_call": false, "state":
+ * "extra_state_idle"}
+ * 
+ * Номер не определяется
+ * 
+ * if (data.state === 'extra_state_offhook') {
+ * AudioRecorder.prepareRecordingAtPath(audioPath, { SampleRate: 22050,
+ * Channels: 1, AudioQuality: "Low", AudioEncoding: "aac" })
+ * 
+ * await AudioRecorder.startRecording() } else if (data.state ===
+ * 'extra_state_idle') { await AudioRecorder.stopRecording() }
+ */
+
+/*
+ * 
+ * if (state==STATE_DIALING) { recIntent.putExtra("action", "call_service");
+ * recIntent.putExtra("state", "extra_state_out_dialing");
+ * context.startService(recIntent);
+ * HeadlessJsTaskService.acquireWakeLockNow(context); } if (state==STATE_ACTIVE)
+ * { recIntent.putExtra("action", "call_service"); recIntent.putExtra("state",
+ * "extra_state_out_active"); context.startService(recIntent);
+ * HeadlessJsTaskService.acquireWakeLockNow(context); } if
+ * (state==STATE_DISCONNECTED) { recIntent.putExtra("action", "call_service");
+ * recIntent.putExtra("state", "extra_state_out_disconnected");
+ * context.startService(recIntent);
+ * HeadlessJsTaskService.acquireWakeLockNow(context); }
+ * 
+ * 
+ * 
+ * 
+ * out 1 -> 4 -> 7 onStateChanged in onCallAdded
+ * 
+ * // call.registerCallback(callCallback); // super.onCallAdded(call); //
+ * OngoingCall.call = call; // MainActivity.startCall();
+ * 
+ * // Intent intent = new Intent(this,MainActivity); //
+ * intent.putExtra(Intent.FLAG_ACTIVITY_NEW_TASK, getPackageName()); //
+ * startActivityForResult(intent, call.details.handle); //
+ * MainActivity.startCall(call);
+ */
+
+/*
+ * 
+ * import com.carusto.ReactNativePjSip.utils.ArgumentUtils;
+ * 
+ * DeviceEmittor
+ * 
+ * https://github.com/florindumitru/react-native-sip/blob/
+ * 6afec9c1d8cde94421fd409d1fee116ea7d4e6f8/android/src/main/java/com/carusto/
+ * ReactNativePjSip/PjSipBroadcastReceiver.java Object params =
+ * ArgumentUtils.fromJson(json); emit("TeleCallReceived", params);
+ * 
+ * 
+ * private void emit(String eventName, @Nullable Object data) { Log.d(TAG,
+ * "emit " + eventName + " / " + data);
+ * 
+ * context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).
+ * emit(eventName, data);
+ * 
+ * 
+ * import android.content.BroadcastReceiver; }
+ * 
+ * public class PjSipBroadcastReceiver extends BroadcastReceiver {
+ * 
+ */
+
+
+
+     /*
+     * private boolean isAppOnForeground(Context context) {
+     * 
+     * // We need to check if app is in foreground otherwise the app will crash. //
+     * http://stackoverflow.com/questions/8489993/check-android-application-is-in-
+     * foreground-or-not
+     * 
+     * ActivityManager activityManager = (ActivityManager)
+     * context.getSystemService(Context.ACTIVITY_SERVICE);
+     * List<ActivityManager.RunningAppProcessInfo> appProcesses =
+     * activityManager.getRunningAppProcesses(); if (appProcesses == null) { return
+     * false; } final String packageName = context.getPackageName(); for
+     * (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) { if
+     * (appProcess.importance ==
+     * ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND &&
+     * appProcess.processName.equals(packageName)) { return true; } } return false;
+     * }
+     */
+
+    private void showApp() {
+        Log.d(LOG_TAG, "showApp()");
+        // Automatically start application when incoming call received.
+
+        /*
+         * PowerManager.WakeLock wl = mPowerManager.newWakeLock(
+         * PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE |
+         * PowerManager.FULL_WAKE_LOCK, "incoming_call" ); wl.acquire(10000);
+         */
+
+        Boolean mAppHidden = true;
+        if (mAppHidden) {
+            try {
+                String ns = getApplicationContext().getPackageName();
+                String cls = ns + ".MainActivity";
+
+                Intent intent = new Intent(getApplicationContext(), Class.forName(cls));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.EXTRA_DOCK_STATE_CAR);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.putExtra("foreground", true);
+
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.w(LOG_TAG, "Failed to open application on received call", e);
+            }
+        }
+
+        job(new Runnable() {
+            @Override
+            public void run() {
+                // Brighten screen at least 10 seconds
+                PowerManager.WakeLock wl = mPowerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
+                        | PowerManager.ON_AFTER_RELEASE | PowerManager.FULL_WAKE_LOCK, "incoming_call");
+                wl.acquire(10000);
+
+            }
+        });
+
+    }
+
+
+
+            /**
+         * // Automatically start application when incoming call received. if
+         * (mAppHidden) { try { String ns = getApplicationContext().getPackageName();
+         * String cls = ns + ".MainActivity";
+         * 
+         * Intent intent = new Intent(getApplicationContext(), Class.forName(cls));
+         * intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.EXTRA_DOCK_STATE_CAR);
+         * intent.addCategory(Intent.CATEGORY_LAUNCHER); intent.putExtra("foreground",
+         * true);
+         * 
+         * startActivity(intent); } catch (Exception e) { Log.w(TAG, "Failed to open
+         * application on received call", e); } }
+         * 
+         * job(new Runnable() {
+         * 
+         * @Override public void run() { // Brighten screen at least 10 seconds
+         *           PowerManager.WakeLock wl = mPowerManager.newWakeLock(
+         *           PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE
+         *           | PowerManager.FULL_WAKE_LOCK, "incoming_call" );
+         *           wl.acquire(10000);
+         * 
+         *           if (mCalls.size() == 0) { mAudioManager.setSpeakerphoneOn(true); }
+         *           } });
+         **/
+
+        // -----
+
+
+
+            /**
+     * Pauses active calls once user answer to incoming calls.
+     */
+    /*
+     * private void doPauseParallelCalls(TeleCall activeCall) { for (TeleCall call :
+     * mCalls) { if (activeCall.getId() == call.getId()) { continue; }
+     * 
+     * try { call.hold(); } catch (Exception e) { Log.w(TAG,
+     * "Failed to put call on hold", e); } } }
+     */
+
+    /**
+     * Pauses all calls, used when received GSM call.
+     */
+
+    /*
+     * private void doPauseAllCalls() { for (TeleCall call : mCalls) { try {
+     * call.hold(); } catch (Exception e) { Log.w(TAG, "Failed to put call on hold",
+     * e); } } }
+     * 
+     * protected class PhoneStateChangedReceiver extends BroadcastReceiver {
+     * 
+     * @Override public void onReceive(Context context, Intent intent) { final
+     * String extraState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+     * 
+     * if (TelephonyManager.EXTRA_STATE_RINGING.equals(extraState) ||
+     * TelephonyManager.EXTRA_STATE_OFFHOOK.equals(extraState)) { Log.d(TAG,
+     * "GSM call received, pause all SIP calls and do not accept incoming SIP calls."
+     * );
+     * 
+     * mGSMIdle = false;
+     * 
+     * job(new Runnable() {
+     * 
+     * @Override public void run() { doPauseAllCalls(); } }); } else if
+     * (TelephonyManager.EXTRA_STATE_IDLE.equals(extraState)) { Log.d(TAG,
+     * "GSM call released, allow to accept incoming calls."); mGSMIdle = true; } } }
+     */
