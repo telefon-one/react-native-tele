@@ -19,19 +19,24 @@
     "url": "https://github.com/telefon-one/react-native-tele/issues"
   },
   "homepage": "https://github.com/telefon-one/react-native-tele#readme",
+  "keywords": [
+  "react-component",
+  "react-native",
+  "android"
+  ]
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "prepublish": "rm -rf ./dist && npm run build",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
   },
-  "dependencies": {
-
+  "peerDependencies": {
+    "react-native": "0.61.5",
   },
   "devDependencies": {
     "react": "16.9.0",
-    "react-native": "0.61.5",
     "@babel/core": "^7.7.7",
     "@babel/runtime": "^7.7.7",
     "@react-native-community/eslint-config": "^0.0.5",
