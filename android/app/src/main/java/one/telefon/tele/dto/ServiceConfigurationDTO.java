@@ -10,8 +10,9 @@ import java.util.ArrayList;
 
 public class ServiceConfigurationDTO {
 
-    /*
+    
     public String ua;
+    /*
     public ArrayList<String> stun;
 
     public String getUserAgent() {
@@ -63,10 +64,11 @@ public class ServiceConfigurationDTO {
         if (conf.containsKey("ua")) {
             c.ua = conf.get("ua").toString();
         }
-
+/*
         if (conf.containsKey("stun")) {
             c.stun = (ArrayList) conf.get("stun");
         }
+*/
 
         return c;
     }

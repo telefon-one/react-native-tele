@@ -23,7 +23,7 @@ import com.facebook.react.bridge.*;
 
 public class TeleModule extends ReactContextBaseJavaModule {
 
-    private static String LOG_TAG = "LOG_telefon.one[TeleModule]";
+    private static String LOG = "telefon.one.tele.TeleModule";
 
     private static TeleBroadcastReceiver receiver;
 
@@ -178,27 +178,27 @@ public class TeleModule extends ReactContextBaseJavaModule {
     /* OLD
     @ReactMethod
     public void getCurrentCall() {
-        Log.d(LOG_TAG, "getCurrentCall()"); 
+        Log.d(LOG, "getCurrentCall()"); 
         TeleManager.getCurrentCall();
     }
 
     //incoming
     @ReactMethod
     public void declineCall() {
-        Log.d(LOG_TAG, "declineCall()"); 
+        Log.d(LOG, "declineCall()"); 
         TeleManager.reject();
     }
 
     @ReactMethod
     public void answerCall() {
-        Log.d(LOG_TAG, "answerCall()");
+        Log.d(LOG, "answerCall()");
         TeleManager.answer(); 
     }
 
     //outgoing
     @ReactMethod
     public void hangupCall() {
-        Log.d(LOG_TAG, "hangupCall()"); 
+        Log.d(LOG, "hangupCall()"); 
         TeleManager.disconnect();
     }
     */
@@ -211,14 +211,3 @@ public class TeleModule extends ReactContextBaseJavaModule {
 
 
 
-
-
-
-
-public class PjSipModule extends ReactContextBaseJavaModule {
-
-
-
-
-
-}

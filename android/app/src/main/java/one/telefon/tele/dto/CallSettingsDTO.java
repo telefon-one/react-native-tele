@@ -41,10 +41,11 @@ public class CallSettingsDTO {
 
     public static CallSettingsDTO fromReadableMap(ReadableMap data) {
         CallSettingsDTO result = new CallSettingsDTO();
-
+/*
         if (data.hasKey("audioCount")) {
             result.setAudioCount(data.getInt("audioCount"));
         }
+        */
         if (data.hasKey("flag")) {
             result.setFlag(data.getInt("flag"));
         }

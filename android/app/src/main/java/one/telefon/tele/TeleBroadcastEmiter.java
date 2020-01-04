@@ -18,7 +18,7 @@ public class TeleBroadcastEmiter {
         this.context = context;
     }
 
-    public void fireStarted(Intent original, List<TeleAccount> accounts, List<TeleCall> calls, JSONObject settings) {
+    public void fireStarted(Intent original/*, List<TeleAccount> accounts*/, List<TeleCall> calls/*, JSONObject settings*/) {
         try {
             JSONArray dataAccounts = new JSONArray();
             /*
@@ -34,7 +34,7 @@ public class TeleBroadcastEmiter {
             JSONObject data = new JSONObject();
             //data.put("accounts", dataAccounts);
             data.put("calls", dataCalls);
-            data.put("settings", settings);
+            //data.put("settings", settings);
 
             Intent intent = new Intent();
             intent.setAction(TeleActions.EVENT_STARTED);

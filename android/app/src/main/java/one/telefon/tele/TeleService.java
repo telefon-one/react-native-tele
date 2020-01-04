@@ -18,7 +18,8 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import one.telefone.tele.utils.ArgumentUtils;
+import one.telefon.tele.utils.ArgumentUtils;
+import one.telefon.tele.dto.ServiceConfigurationDTO;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -52,14 +53,14 @@ public class TeleService extends InCallService {
     private WifiManager mWifiManager;
     private WifiManager.WifiLock mWifiLock;
     // private boolean mGSMIdle;
-    private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
+    //private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
 
     // inCallService START
     @Override
     public void onCallAdded(Call call) {
         Log.d(TAG, "onCallAdded");
 
-        showApp();
+        //showApp();
 
         super.onCallAdded(call);
         TeleManager.updateCall(call, "onCallAdded");
@@ -207,15 +208,6 @@ public class TeleService extends InCallService {
 
 
 
-    private void handle(Intent intent) {
-        if (intent == null || intent.getAction() == null) {
-            return;
-        }
-
-        Log.d(TAG, "Handle \""+ intent.getAction() +"\" action ("+
-        ArgumentUtils.dumpIntentExtraParameters(intent) +")");
-        //Log.d(TAG, "Handle \"" + intent.getAction() + "\" action ");
-    }
 
     private void load() {
         // Load native libraries
@@ -238,7 +230,7 @@ public class TeleService extends InCallService {
         }
         */
 
-        unregisterReceiver(mPhoneStateChangedReceiver);
+        //unregisterReceiver(mPhoneStateChangedReceiver);
         super.onDestroy();
     }
 
@@ -402,7 +394,7 @@ public class TeleService extends InCallService {
             settings.put("codecs", codecs);
             */
 
-            mEmitter.fireStarted(intent, mAccounts, mCalls, settings);
+            mEmitter.fireStarted(intent/*, mAccounts*/, mCalls/*, settings*/);
         } catch (Exception error) {
             Log.e(TAG, "Error while building codecs list", error);
             throw new RuntimeException(error);
@@ -636,13 +628,13 @@ public class TeleService extends InCallService {
             }
             */
 
-            TeleCall call = new TeleCall(account);
-            call.makeCall(destination, callOpParam);
+            TeleCall call = new TeleCall();
+            call.makeCall(destination/*, callOpParam*/);
 
             //callOpParam.delete();
 
             // Automatically put other calls on hold.
-            doPauseParallelCalls(call);
+            //doPauseParallelCalls(call);
 
             mCalls.add(call);
             mEmitter.fireIntentHandled(intent, call.toJson());
@@ -655,7 +647,8 @@ public class TeleService extends InCallService {
         try {
             int callId = intent.getIntExtra("call_id", -1);
             TeleCall call = findCall(callId);
-            call.hangup(new CallOpParam(true));
+            //call.hangup(/*new CallOpParam(true)*/);
+            call.disconnect();
 
             mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
@@ -669,10 +662,11 @@ public class TeleService extends InCallService {
 
             // -----
             TeleCall call = findCall(callId);
-            CallOpParam prm = new CallOpParam(true);
-            prm.setStatusCode("PJSIP_SC_DECLINE");
-            call.hangup(prm);
-            prm.delete();
+            //CallOpParam prm = new CallOpParam(true);
+            //prm.setStatusCode("PJSIP_SC_DECLINE");
+            //call.hangup(/*prm*/);
+            call.reject();
+            //prm.delete();
 
             mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
@@ -686,12 +680,12 @@ public class TeleService extends InCallService {
 
             // -----
             TeleCall call = findCall(callId);
-            CallOpParam prm = new CallOpParam();
-            prm.setStatusCode("PJSIP_SC_OK");
-            call.answer(prm);
+            //CallOpParam prm = new CallOpParam();
+            //prm.setStatusCode("PJSIP_SC_OK");
+            call.answer(); /*prm*/
 
             // Automatically put other calls on hold.
-            doPauseParallelCalls(call);
+            //doPauseParallelCalls(call);
 
             mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
@@ -888,9 +882,9 @@ public class TeleService extends InCallService {
 
     private TeleCall findCall(int id) throws Exception {
         for (TeleCall call : mCalls) {
-            if (call.getId() == id) {
+            /*if (call.getId() == id) {
                 return call;
-            }
+            }*/
         }
 
         throw new Exception("Call with specified \"" + id + "\" id not found");
@@ -907,30 +901,30 @@ public class TeleService extends InCallService {
     }
     */
 
-    void emmitCallReceived(TeleAccount account, TeleCall call) {
+    void emmitCallReceived(/*TeleAccount account,*/ TeleCall call) {
         // Automatically decline incoming call when user uses GSM
-        StartApp();
+        //StartApp();
 
         mCalls.add(call);
         mEmitter.fireCallReceivedEvent(call);
     }
 
-    void emmitCallStateChanged(TeleCall call, OnCallStateParam prm) {
+    void emmitCallStateChanged(TeleCall call/*, OnCallStateParam prm*/) {
         try {
-            if (call.getInfo().getState() == "PJSIP_INV_STATE_DISCONNECTED") {
-                emmitCallTerminated(call, prm);
-            } else {
-                emmitCallChanged(call, prm);
-            }
+            //if (call.getInfo().getState() == "PJSIP_INV_STATE_DISCONNECTED") {
+            //    emmitCallTerminated(call, prm);
+            //} else {
+                emmitCallChanged(call/*, prm*/);
+            //}
         } catch (Exception e) {
             Log.w(TAG, "Failed to handle call state event", e);
         }
     }
 
-    void emmitCallChanged(TeleCall call, OnCallStateParam prm) {
+    void emmitCallChanged(TeleCall call/*, OnCallStateParam prm*/) {
         try {
-            final int callId = call.getId();
-            final String callState = call.getInfo().getState();
+            final int callId;// = call.getId();
+            final String callState;// = call.getInfo().getState();
 
             job(new Runnable() {
                 @Override
@@ -944,18 +938,21 @@ public class TeleService extends InCallService {
                     }
 
                     // Ensure that ringing sound is stopped
+                    /*
                     if (callState != "PJSIP_INV_STATE_INCOMING" && !mUseSpeaker
                             && mAudioManager.isSpeakerphoneOn()) {
                         mAudioManager.setSpeakerphoneOn(false);
                     }
+                    */
 
                     // Acquire wifi lock
                     mWifiLock.acquire();
 
+                    /*
                     if (callState == "PJSIP_INV_STATE_EARLY"
                             || callState == "PJSIP_INV_STATE_CONFIRMED") {
                         mAudioManager.setMode(AudioManager.MODE_IN_CALL);
-                    }
+                    }*/
                 }
             });
         } catch (Exception e) {
@@ -965,8 +962,8 @@ public class TeleService extends InCallService {
         mEmitter.fireCallChanged(call);
     }
 
-    void emmitCallTerminated(TeleCall call, OnCallStateParam prm) {
-        final int callId = call.getId();
+    void emmitCallTerminated(TeleCall call/*, OnCallStateParam prm*/) {
+        final int callId;// = call.getId();
 
         job(new Runnable() {
             @Override
