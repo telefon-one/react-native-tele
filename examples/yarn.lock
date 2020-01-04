@@ -5023,6 +5023,14 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-native-tele@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-tele/-/react-native-tele-0.0.3.tgz#76d3aa58ebff5068ded9d4665a109c3e7e94de9b"
+  integrity sha512-aC2IuOBfCzcCk+fEgIqDWMJD2ARz7TElombBrUi6bE9X/lF2irM6Rut5lEQbtuWt33AjhnFu9R+IX25M2DtMpQ==
+  dependencies:
+    react "16.9.0"
+    react-native "0.61.5"
+
 react-native@0.61.5:
   version "0.61.5"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.61.5.tgz#6e21acb56cbd75a3baeb1f70201a66f42600bba8"
@@ -5135,13 +5143,6 @@ realpath-native@^1.1.0:
   integrity sha512-wlgPA6cCIIg9gKz0fgAPjnzh4yR/LnXovwuo9hvyGvx3h8nX4+/iLZplfUWasXpqD8BdnGnP5njOFjkUwPzvjA==
   dependencies:
     util.promisify "^1.0.0"
-
-"recat-native-tele@git+https://github.com/telefon-one/react-native-tele.git":
-  version "0.0.2"
-  resolved "git+https://github.com/telefon-one/react-native-tele.git#ee9d5dc216ffa179eb0c3bcbcd8f072247911a37"
-  dependencies:
-    react "16.9.0"
-    react-native "0.61.5"
 
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"

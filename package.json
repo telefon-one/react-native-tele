@@ -1,8 +1,11 @@
 {
-  "name": "recat-native-tele",
+  "name": "react-native-tele",
   "main": "index.js",
   "description": "Telecommunication module based on InCall JavaService for React Native",
   "version": "0.0.3",
+    "publishConfig": {
+       "access": "restricted"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/telefon-one/react-native-tele.git"
@@ -24,10 +27,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-native": "0.61.5"
+
   },
   "devDependencies": {
+    "react": "16.9.0",
+    "react-native": "0.61.5",
     "@babel/core": "^7.7.7",
     "@babel/runtime": "^7.7.7",
     "@react-native-community/eslint-config": "^0.0.5",
