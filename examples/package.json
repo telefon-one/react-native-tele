@@ -18,7 +18,7 @@
   "dependencies": {
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-tele": "git+https://github.com/telefon-one/react-native-tele.git"
+    "react-native-tele": "^0.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
