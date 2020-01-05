@@ -2,17 +2,17 @@
   "name": "react-native-tele",
   "main": "index.js",
   "description": "Telecommunication module based on InCall JavaService for React Native",
-  "version": "0.0.3",
-    "publishConfig": {
-       "access": "restricted"
-    },
+  "version": "0.0.4",
+  "publishConfig": {
+    "access": "restricted"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/telefon-one/react-native-tele.git"
   },
   "author": {
-    "name":"Anton Dodonov",
-    "email":"cpodimas@gmail.com"
+    "name": "Anton Dodonov",
+    "email": "cpodimas@gmail.com"
   },
   "license": "ISC",
   "bugs": {
@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/telefon-one/react-native-tele#readme",
   "keywords": [
-  "react-component",
-  "react-native",
-  "android"
+    "react-component",
+    "react-native",
+    "android"
   ],
   "scripts": {
     "android": "react-native run-android",
@@ -31,14 +31,14 @@
     "test": "jest",
     "lint": "eslint ."
   },
-  "nativePackage":"true",
-
+  "nativePackage": "true",
   "dependencies": {
     "events": "1.1.0"
   },
   "peerDependencies": {
     "react-native": ">=0.40.0"
-  },  "devDependencies": {
+  },
+  "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/runtime": "^7.7.7",
     "@react-native-community/eslint-config": "^0.0.5",
