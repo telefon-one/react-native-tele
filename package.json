@@ -2,7 +2,7 @@
   "name": "react-native-tele",
   "main": "index.js",
   "description": "Telecommunication module based on InCall JavaService for React Native",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "access": "restricted"
   },
