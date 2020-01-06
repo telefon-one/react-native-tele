@@ -22,7 +22,9 @@
   "keywords": [
     "react-component",
     "react-native",
-    "android"
+    "android",
+    "dialer",
+    "telecom"
   ],
   "scripts": {
     "android": "react-native run-android",

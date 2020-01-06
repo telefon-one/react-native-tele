@@ -95,7 +95,7 @@ public class MainActivity extends ReactActivity {
       Log.w("telefon.one", "offerReplacingDefaultDialer->send intent");
       Intent intent = new Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER);
       intent.putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, getPackageName());
-      startActivityForResult(intent, RC_DEFAULT_PHONE);
+      startActivityForResult(intent, RC_DEFAULT_PHONE,0);
       // startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER); //Different
       // code
       // Huawei/ honor : ??? manual ??? startActivityForResult(new
