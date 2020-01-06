@@ -27,7 +27,7 @@ export default class Endpoint extends EventEmitter {
      */
     start(configuration) {
         return new Promise(function(resolve, reject) {
-            NativeModules.PjSipModule.start(configuration, (successful, data) => {
+            NativeModules.TeleModule.start(configuration, (successful, data) => {
                 if (successful) {
                     let calls = [];
 

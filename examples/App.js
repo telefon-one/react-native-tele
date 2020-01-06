@@ -21,12 +21,15 @@ import {
 import { Endpoint } from 'react-native-tele'
 
 export default class App extends Component {
-
   constructor() {
-
+    super();
+  }
+  async componentDidMount() {
 
     let tEndpoint = new Endpoint();
-    let state = await endpoint.start(); // List of calls when RN context is started, could not be empty because Background service is working on Android
+    console.log(tEndpoint);
+
+    let state = await tEndpoint.start(); // List of calls when RN context is started, could not be empty because Background service is working on Android
     let { calls, settings } = state;
 
     // Subscribe to endpoint events
@@ -138,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+

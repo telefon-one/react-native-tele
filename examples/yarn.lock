@@ -2370,6 +2370,11 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
+events@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-1.1.0.tgz#4b389fc200f910742ebff3abb2efe33690f45429"
+  integrity sha1-SzifwgD5EHQuv/Orsu/jNpD0VCk=
+
 exec-sh@^0.3.2:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.4.tgz#3a018ceb526cc6f6df2bb504b2bfe8e3a4934ec5"
@@ -5023,13 +5028,11 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-native-tele@^0.0.4:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-tele/-/react-native-tele-0.0.3.tgz#76d3aa58ebff5068ded9d4665a109c3e7e94de9b"
-  integrity sha512-aC2IuOBfCzcCk+fEgIqDWMJD2ARz7TElombBrUi6bE9X/lF2irM6Rut5lEQbtuWt33AjhnFu9R+IX25M2DtMpQ==
+"react-native-tele@git+https://github.com/telefon-one/react-native-tele.git":
+  version "0.0.4"
+  resolved "git+https://github.com/telefon-one/react-native-tele.git#4a83e21753332351ae3ebe6022a137959c4d8b0e"
   dependencies:
-    react "16.9.0"
-    react-native "0.61.5"
+    events "1.1.0"
 
 react-native@0.61.5:
   version "0.61.5"

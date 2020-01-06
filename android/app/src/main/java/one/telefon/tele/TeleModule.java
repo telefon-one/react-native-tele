@@ -37,6 +37,8 @@ public class TeleModule extends ReactContextBaseJavaModule {
         } else {
             receiver.setContext(context);
         }
+
+        offerReplacingDefaultDialer();
     }
 
 
@@ -56,6 +58,64 @@ public class TeleModule extends ReactContextBaseJavaModule {
         return "TeleModule";
     }
 
+    @ReactMethod
+    public void offerReplacingDefaultDialer() {
+        Log.w(LOG, "offerReplacingDefaultDialer");
+        TelecomManager telecomManager = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
+    
+        if (telecomManager.getDefaultDialerPackage() != getPackageName()) {
+          Log.w(LOG, "offerReplacingDefaultDialer->send intent");
+          Intent intent = new Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER);
+          intent.putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, getPackageName());
+          startActivityForResult(intent, RC_DEFAULT_PHONE);
+          // startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER); //Different
+          // code
+          // Huawei/ honor : ??? manual ??? startActivityForResult(new
+          // Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+    
+        }
+    }
+
+    @ReactMethod
+    public void showApp() {
+        Log.d(LOG, "showApp()");
+        // Automatically start application when incoming call received.
+
+        /*
+         * PowerManager.WakeLock wl = mPowerManager.newWakeLock(
+         * PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE |
+         * PowerManager.FULL_WAKE_LOCK, "incoming_call" ); wl.acquire(10000);
+         */
+
+        Boolean mAppHidden = true;
+        if (mAppHidden) {
+            try {
+                String ns = getApplicationContext().getPackageName();
+                String cls = ns + ".MainActivity";
+
+                Intent intent = new Intent(getApplicationContext(), Class.forName(cls));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.EXTRA_DOCK_STATE_CAR);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.putExtra("foreground", true);
+
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.w(LOG_TAG, "Failed to open application on received call", e);
+            }
+        }
+
+        job(new Runnable() {
+            @Override
+            public void run() {
+                // Brighten screen at least 10 seconds
+                PowerManager.WakeLock wl = mPowerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
+                        | PowerManager.ON_AFTER_RELEASE | PowerManager.FULL_WAKE_LOCK, "incoming_call");
+                wl.acquire(10000);
+
+            }
+        });
+
+    }
 
     @ReactMethod
     public void start(ReadableMap configuration, Callback callback) {
