@@ -27,6 +27,10 @@ public class TeleCall /* extends Call */ {
 
     }
 
+    public TeleCall(Call mCall) {
+        this.call=mCall;
+    }
+
     public void answer()
     {
         call.answer(call.getDetails().getVideoState());

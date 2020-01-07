@@ -5034,7 +5034,7 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
 
 "react-native-tele@https://github.com/telefon-one/react-native-tele":
   version "0.0.6"
-  resolved "https://github.com/telefon-one/react-native-tele#8c1da63e07a475ec0ee4368db3ac86886c768cb2"
+  resolved "https://github.com/telefon-one/react-native-tele#b397ba42a54a307f9f1ecf6c6c0cdbb400fe6510"
   dependencies:
     events "1.1.0"
 
