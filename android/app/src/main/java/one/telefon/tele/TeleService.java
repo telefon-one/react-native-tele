@@ -166,7 +166,7 @@ public class TeleService extends InCallService {
             mWorkerThread.setPriority(Thread.MAX_PRIORITY);
             mWorkerThread.start();
             mHandler = new Handler(mWorkerThread.getLooper());
-            // mEmitter = new TeleBroadcastEmiter(this);
+            mEmitter = new TeleBroadcastEmiter(this);
 
             mAudioManager = (AudioManager) getApplicationContext().getSystemService(AUDIO_SERVICE);
             mPowerManager = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);

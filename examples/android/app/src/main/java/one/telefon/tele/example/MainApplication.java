@@ -1,4 +1,4 @@
-package com.dialer;
+package one.telefon.tele.example;
 
 import android.app.Application;
 import android.content.Context;
