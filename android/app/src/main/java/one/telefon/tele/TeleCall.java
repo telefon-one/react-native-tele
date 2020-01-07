@@ -28,7 +28,7 @@ public class TeleCall /* extends Call */ {
     }
 
     public TeleCall(Call mCall) {
-        this.call=mCall;
+        call=mCall;
     }
 
     public void answer()
