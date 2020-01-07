@@ -38,7 +38,7 @@ public class TeleModule extends ReactContextBaseJavaModule {
             receiver.setContext(context);
         }
 
-        offerReplacingDefaultDialer();
+        //offerReplacingDefaultDialer();
     }
 
 
