@@ -63,7 +63,14 @@ public class TeleService extends InCallService {
         //showApp();
 
         super.onCallAdded(call);
+
         TeleManager.updateCall(call, "onCallAdded");
+        TeleCall tCall=new TeleCall(call);
+        mCalls.add(tCall);
+        mEmitter.fireCallReceivedEvent(tCall);
+
+
+
 
         /* DisconnectCause getDisconnectCause() */
 
