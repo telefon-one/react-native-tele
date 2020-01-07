@@ -58,6 +58,7 @@ public class TeleModule extends ReactContextBaseJavaModule {
         return "TeleModule";
     }
 
+    /*
     @ReactMethod
     public void offerReplacingDefaultDialer() {
         Log.w(LOG, "offerReplacingDefaultDialer");
@@ -80,13 +81,13 @@ public class TeleModule extends ReactContextBaseJavaModule {
     public void showApp() {
         Log.d(LOG, "showApp()");
         // Automatically start application when incoming call received.
-
+*/
         /*
          * PowerManager.WakeLock wl = mPowerManager.newWakeLock(
          * PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE |
          * PowerManager.FULL_WAKE_LOCK, "incoming_call" ); wl.acquire(10000);
          */
-
+/*
         Boolean mAppHidden = true;
         if (mAppHidden) {
             try {
@@ -116,7 +117,7 @@ public class TeleModule extends ReactContextBaseJavaModule {
         });
 
     }
-
+*/
     @ReactMethod
     public void start(ReadableMap configuration, Callback callback) {
         int id = receiver.register(callback);

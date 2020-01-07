@@ -19,6 +19,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { Endpoint } from 'react-native-tele'
+import { ReplaceDialer } from 'react-native-replace-dialer'
 
 export default class App extends Component {
   constructor() {
@@ -26,6 +27,18 @@ export default class App extends Component {
   }
   async componentDidMount() {
 
+    let tReplaceDialer = new ReplaceDialer();
+
+    if (!tReplaceDialer.isDefault()) {
+      console.log('Is NOT default dialer, try to set.');
+      if (tReplaceDialer.setDefault()) {
+        console.log('Default dialer sucessfully set.');
+      } else {
+        console.log('Default dialer NOT set');
+      }
+    }
+
+    
     let tEndpoint = new Endpoint();
     console.log(tEndpoint);
 
