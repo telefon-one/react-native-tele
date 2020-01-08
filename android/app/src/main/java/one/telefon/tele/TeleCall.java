@@ -242,7 +242,7 @@ public class TeleCall /* extends Call */ {
             json.put("state_android", state_android);
             json.put("state", state);
             json.put("stateText", stateText);
-            json.put("stateText", lastReason);
+            json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
             
