@@ -3,9 +3,6 @@
   "main": "index.js",
   "description": "Telecommunication module based on InCall JavaService for React Native",
   "version": "0.0.6",
-  "publishConfig": {
-    "access": "restricted"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/telefon-one/react-native-tele.git"

@@ -174,28 +174,14 @@ public class TeleCall /* extends Call */ {
     // getService().emmitCallUpdated(this);
     // }
 
-    public void updateState(int state) {
-        /*
-         * String state_str='PJSIP_INV_STATE_UNKNOWN';
-         * 
-         * //this.currentCall.state='PJSIP_INV_STATE_NULL'; if (state ===
-         * STATE_CONNECTING) { str_state='PJSIP_INV_STATE_CALLING'; this.incoming=false;
-         * } if (state === STATE_RINGING) { str_state='PJSIP_INV_STATE_INCOMING';
-         * this.incoming=true; }
-         * 
-         * if (state === STATE_DIALING) { str_state='PJSIP_INV_STATE_EARLY';
-         * this.incoming=false; } if (state === STATE_ACTIVE) {
-         * str_state='PJSIP_INV_STATE_CONFIRMED'; } if (state === STATE_DISCONNECTED) {
-         * str_state='PJSIP_INV_STATE_DISCONNECTED'; this._lastReason='PJSIP_SC_OK'; }
-         * if (state === STATE_DISCONNECTING) { //TODO
-         * this.currentCall.state='PJSIP_INV_STATE_DISCONNECTED';
-         * this.currentCall._state=this.currentCall.state;
-         * this._lastReason='PJSIP_SC_OK'; }
-         */
-    }
+
 
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+
+        if (call == null) {
+            return json;
+        }
 
         Call.Details details;
         try {
@@ -205,32 +191,32 @@ public class TeleCall /* extends Call */ {
             return json;
         }
 
-        if (call == null) {
-            return json;
-        }
 
-        String uri = details.getHandle().toString();
-        String name = details.getCallerDisplayName();
 
-        // API SPECIFIED
-        // long creationTimeMillis;
-        // if (android.os.Build.VERSION.SDK_INT >= 26) {
-        // if (Build.VERSION.SDK_INT >= 26) {
-        // creationTimeMillis = details.getCreationTimeMillis();
-        // } else {
-        // creationTimeMillis = 0;
-        // }
-        // int direction;
-        // if (android.os.Build.VERSION.SDK_INT >= 29) {
-        // direction = details.getCallDirection();
-        // } else {
-        // direction = 0;
-        // }
-
-        int state = call.getState();
-        long connectTimeMillis = details.getConnectTimeMillis();
+ 
 
         try {
+        String uri = details.getHandle().toString();
+            String name = details.getCallerDisplayName();
+
+            // API SPECIFIED
+            // long creationTimeMillis;
+            // if (android.os.Build.VERSION.SDK_INT >= 26) {
+            // if (Build.VERSION.SDK_INT >= 26) {
+            // creationTimeMillis = details.getCreationTimeMillis();
+            // } else {
+            // creationTimeMillis = 0;
+            // }
+            // int direction;
+            // if (android.os.Build.VERSION.SDK_INT >= 29) {
+            // direction = details.getCallDirection();
+            // } else {
+            // direction = 0;
+            // }
+
+            int state_android = call.getState();
+            long connectTimeMillis = details.getConnectTimeMillis();
+            
             // -----
             // AudioManager audioManager = (AudioManager)
             // getService().getBaseContext().getSystemService(Context.AUDIO_SERVICE);
@@ -238,7 +224,28 @@ public class TeleCall /* extends Call */ {
 
             // -----
             int connectDuration = -1;
-            // String state_str=StateToSip(state);
+        
+            String state;
+            String stateText="PJSIP_INV_STATE_UNKNOWN";
+            String lastReason="";
+
+            if (state_android == STATE_CONNECTING) { stateText="PJSIP_INV_STATE_CALLING"; /*incoming=false;*/ }
+            if (state_android == STATE_RINGING) { stateText="PJSIP_INV_STATE_INCOMING"; /*this.incoming=true;*/ }
+         
+            if (state_android == STATE_DIALING) { stateText="PJSIP_INV_STATE_EARLY"; /* this.incoming=false; */ }
+            if (state_android == STATE_ACTIVE) { stateText="PJSIP_INV_STATE_CONFIRMED"; } 
+            if (state_android == STATE_DISCONNECTED) { stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
+            if (state_android == STATE_DISCONNECTING) { /*TODO*/ stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
+        
+            state=stateText;
+
+            json.put("state_android", state_android);
+            json.put("state", state);
+            json.put("stateText", stateText);
+            json.put("stateText", lastReason);
+            json.put("remoteContact", name);
+            json.put("remoteUri", uri);
+            
 
             // if (info.getState() == "PJSIP_INV_STATE_CONFIRMED" || info.getState() ==
             // "PJSIP_INV_STATE_DISCONNECTED") {
@@ -253,11 +260,10 @@ public class TeleCall /* extends Call */ {
             // -----
             // json.put("localContact", info.getLocalContact());
             // json.put("localUri", info.getLocalUri());
-            json.put("remoteContact", name);
-            json.put("remoteUri", uri);
+
 
             // -----
-            json.put("state", state);
+            // json.put("state", state);
             // json.put("stateText", info.getStateText());
             // json.put("connectDuration", connectDuration);
             // json.put("totalDuration", info.getTotalDuration().getSec());

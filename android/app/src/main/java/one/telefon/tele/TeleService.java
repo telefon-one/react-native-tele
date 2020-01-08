@@ -67,9 +67,10 @@ public class TeleService extends InCallService {
         TeleManager.updateCall(call, "onCallAdded");
         TeleCall tCall=new TeleCall(call);
         mCalls.add(tCall);
+
+        
+        //TODO emitCallRec
         mEmitter.fireCallReceivedEvent(tCall);
-
-
 
 
         /* DisconnectCause getDisconnectCause() */
@@ -80,7 +81,9 @@ public class TeleService extends InCallService {
                 Log.d(TAG, "onCallDestroyed");
                 super.onCallDestroyed(call);
                 TeleManager.updateCall(call, "onCallDestroyed");
-                // sendHeadless("TeleService", "onCallDestroyed", "", "", 0, 0, 0, 0);
+                TeleCall tCall=new TeleCall(call);                
+                //TODO emitCallTerm
+                mEmitter.fireCallTerminatedEvent(tCall);
             }
 
             @Override
@@ -90,9 +93,9 @@ public class TeleService extends InCallService {
                 super.onDetailsChanged(call, details);
                 TeleManager.updateCall(call, "onDetailsChanged");
 
-                // String num = details.getHandle().toString();
-                // String name = details.getCallerDisplayName();
-                // sendHeadless("TeleService", "onDetailsChanged", name, num, 0, 0, 0, 0);
+                TeleCall tCall=new TeleCall(call);                
+                //TODO emitCallChanged
+                mEmitter.fireCallChanged(tCall);
             }
 
             @Override
@@ -101,9 +104,10 @@ public class TeleService extends InCallService {
                 super.onStateChanged(call, state);
 
                 TeleManager.updateCall(call, "onStateChanged");
-                // long connectTimeMillis = details.getConnectTimeMillis();
-                // sendHeadless("TeleService", "onStateChanged", "", "", state, 0, 0,
-                // connectTimeMillis);
+
+                TeleCall tCall=new TeleCall(call);                
+                //TODO emitCallChanged
+                mEmitter.fireCallChanged(tCall);
             }
 
             /*
