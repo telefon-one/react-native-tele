@@ -38,12 +38,14 @@ export default class App extends Component {
       }
     }
 
-    
+
     let tEndpoint = new Endpoint();
     console.log(tEndpoint);
 
     let state = await tEndpoint.start(); // List of calls when RN context is started, could not be empty because Background service is working on Android
     let { calls, settings } = state;
+    console.log("calls",calls);
+    console.log("settings",settings);
 
     // Subscribe to endpoint events
     // tEndpoint.on("registration_changed", (account) => {}); // TODO

@@ -11,12 +11,14 @@ export default class Endpoint extends EventEmitter {
 
 
         // Subscribe to Calls events
-        DeviceEventEmitter.addListener('teleCallReceived', this._onCallReceived.bind(this));
-        DeviceEventEmitter.addListener('teleCallChanged', this._onCallChanged.bind(this));
-        DeviceEventEmitter.addListener('teleCallTerminated', this._onCallTerminated.bind(this));
-        DeviceEventEmitter.addListener('teleCallScreenLocked', this._onCallScreenLocked.bind(this));
-        DeviceEventEmitter.addListener('teleMessageReceived', this._onMessageReceived.bind(this));
-        DeviceEventEmitter.addListener('teleConnectivityChanged', this._onConnectivityChanged.bind(this));
+        DeviceEventEmitter.addListener('TeleCallReceived', this._onCallReceived.bind(this));
+        DeviceEventEmitter.addListener('TeleCallChanged', this._onCallChanged.bind(this));
+        DeviceEventEmitter.addListener('TeleCallTerminated', this._onCallTerminated.bind(this));
+        DeviceEventEmitter.addListener('TeleCallScreenLocked', this._onCallScreenLocked.bind(this));
+        DeviceEventEmitter.addListener('TeleMessageReceived', this._onMessageReceived.bind(this));
+        DeviceEventEmitter.addListener('TeleConnectivityChanged', this._onConnectivityChanged.bind(this));
+    
+        //DeviceEventEmitter.emit('TeleTest', {});
     }
 
     /**

@@ -246,6 +246,7 @@ public class TeleCall /* extends Call */ {
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
             
+            json.put("simSlot", 1); //TODO ADD
 
             // if (info.getState() == "PJSIP_INV_STATE_CONFIRMED" || info.getState() ==
             // "PJSIP_INV_STATE_DISCONNECTED") {
