@@ -229,13 +229,13 @@ public class TeleCall /* extends Call */ {
             String stateText="PJSIP_INV_STATE_UNKNOWN";
             String lastReason="";
 
-            if (state_android == STATE_CONNECTING) { stateText="PJSIP_INV_STATE_CALLING"; /*incoming=false;*/ }
-            if (state_android == STATE_RINGING) { stateText="PJSIP_INV_STATE_INCOMING"; /*this.incoming=true;*/ }
+            if (state_android == Call.STATE_CONNECTING) { stateText="PJSIP_INV_STATE_CALLING"; /*incoming=false;*/ }
+            if (state_android == Call.STATE_RINGING) { stateText="PJSIP_INV_STATE_INCOMING"; /*this.incoming=true;*/ }
          
-            if (state_android == STATE_DIALING) { stateText="PJSIP_INV_STATE_EARLY"; /* this.incoming=false; */ }
-            if (state_android == STATE_ACTIVE) { stateText="PJSIP_INV_STATE_CONFIRMED"; } 
-            if (state_android == STATE_DISCONNECTED) { stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
-            if (state_android == STATE_DISCONNECTING) { /*TODO*/ stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
+            if (state_android == Call.STATE_DIALING) { stateText="PJSIP_INV_STATE_EARLY"; /* this.incoming=false; */ }
+            if (state_android == Call.STATE_ACTIVE) { stateText="PJSIP_INV_STATE_CONFIRMED"; } 
+            if (state_android == Call.STATE_DISCONNECTED) { stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
+            if (state_android == Call.STATE_DISCONNECTING) { /*TODO*/ stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
         
             state=stateText;
 
