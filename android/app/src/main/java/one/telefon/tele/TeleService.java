@@ -83,7 +83,7 @@ public class TeleService extends InCallService {
                 TeleManager.updateCall(call, "onCallDestroyed");
                 TeleCall tCall=new TeleCall(call);                
                 //TODO emitCallTerm
-                mEmitter.fireCallTerminatedEvent(tCall);
+                mEmitter.fireCallTerminated(tCall);
             }
 
             @Override
