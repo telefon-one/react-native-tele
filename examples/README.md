@@ -1,2 +1,2 @@
-# react-native-tele-exaple
+# react-native-tele-example
 
