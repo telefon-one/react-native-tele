@@ -3,6 +3,8 @@ import {EventEmitter} from 'events'
 
 import Call from './Call'
 
+import { ReplaceDialer } from 'react-native-replace-dialer'
+
 
 export default class Endpoint extends EventEmitter {
 
@@ -29,6 +31,21 @@ export default class Endpoint extends EventEmitter {
      */
     start(configuration) {
         return new Promise(function(resolve, reject) {
+            
+            if(configuration.ReplaceDialer==true)
+            {
+            let tReplaceDialer = new ReplaceDialer();
+
+            if (!tReplaceDialer.isDefault()) {
+              console.log('Is NOT default dialer, try to set.');
+              if (tReplaceDialer.setDefault()) {
+                console.log('Default dialer sucessfully set.');
+              } else {
+                console.log('Default dialer NOT set');
+              }
+            }
+            }
+
             NativeModules.TeleModule.start(configuration, (successful, data) => {
                 if (successful) {
                     let calls = [];
@@ -67,8 +84,8 @@ export default class Endpoint extends EventEmitter {
      *
      * @param sim {Sim} TODO
      * @param destination {String} Destination SIP URI.
-     * @param callSettings {PjSipCallSetttings} Outgoing call settings.
-     * @param msgSettings {PjSipMsgData} Outgoing call additional information to be sent with outgoing SIP message.
+     * @param callSettings {TeleCallSetttings} Outgoing call settings.
+     * @param msgSettings {TeleMsgData} Outgoing call additional information to be sent with outgoing SIP message.
      */
     makeCall(sim, destination, callSettings, msgData) {
         //destination = this._normalize(account, destination);
@@ -253,7 +270,7 @@ export default class Endpoint extends EventEmitter {
         destination = this._normalize(account, destination);
 
         return new Promise((resolve, reject) => {
-            NativeModules.PjSipModule.xferCall(call.getId(), destination, (successful, data) => {
+            NativeModules.TeleModule.xferCall(call.getId(), destination, (successful, data) => {
                 if (successful) {
                     resolve(data);
                 } else {
@@ -275,7 +292,7 @@ export default class Endpoint extends EventEmitter {
     /*
     xferReplacesCall(call, destCall) {
         return new Promise((resolve, reject) => {
-            NativeModules.PjSipModule.xferReplacesCall(call.getId(), destCall.getId(), (successful, data) => {
+            NativeModules.TeleModule.xferReplacesCall(call.getId(), destCall.getId(), (successful, data) => {
                 if (successful) {
                     resolve(data);
                 } else {
@@ -299,7 +316,7 @@ export default class Endpoint extends EventEmitter {
         destination = this._normalize(account, destination);
 
         return new Promise((resolve, reject) => {
-            NativeModules.PjSipModule.redirectCall(call.getId(), destination, (successful, data) => {
+            NativeModules.TeleModule.redirectCall(call.getId(), destination, (successful, data) => {
                 if (successful) {
                     resolve(data);
                 } else {
@@ -319,7 +336,7 @@ export default class Endpoint extends EventEmitter {
     /*
     dtmfCall(call, digits) {
         return new Promise((resolve, reject) => {
-            NativeModules.PjSipModule.dtmfCall(call.getId(), digits, (successful, data) => {
+            NativeModules.TeleModule.dtmfCall(call.getId(), digits, (successful, data) => {
                 if (successful) {
                     resolve(data);
                 } else {

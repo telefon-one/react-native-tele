@@ -1,4 +1,4 @@
-package one.telefon.tele.example;
+package one.telefon.examples.tele;
 
 import android.app.Application;
 import android.content.Context;
