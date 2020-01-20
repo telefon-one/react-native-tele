@@ -388,7 +388,7 @@ export default class Endpoint extends EventEmitter {
          * @event Endpoint#call_received
          * @property {Call} call
          */
-        console.log("_onCallReceived");
+        //console.log("_onCallReceived -> call_received");
         this.emit("call_received", new Call(data));
     }
 
@@ -404,7 +404,7 @@ export default class Endpoint extends EventEmitter {
          * @event Endpoint#call_changed
          * @property {Call} call
          */
-        console.log("call_changed", data);
+        //console.log("_onCallChanged -> call_changed", data);
         this.emit("call_changed", new Call(data));
     }
 
