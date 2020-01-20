@@ -35,7 +35,7 @@ import android.telecom.Call;
 import android.telecom.InCallService;
 
 public class TeleService extends InCallService {
-    private static String TAG = "telefon.one.tele.TeleService";
+    private static String TAG = "one.telefon.tele.TeleService";
 
     private boolean mInitialized;
     private HandlerThread mWorkerThread;

@@ -404,6 +404,7 @@ export default class Endpoint extends EventEmitter {
          * @event Endpoint#call_changed
          * @property {Call} call
          */
+        console.log("call_changed", data);
         this.emit("call_changed", new Call(data));
     }
 
