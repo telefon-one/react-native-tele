@@ -1,5 +1,5 @@
-import React, {DeviceEventEmitter, NativeModules} from 'react-native';
-import {EventEmitter} from 'events'
+import React, { DeviceEventEmitter, NativeModules } from 'react-native';
+import { EventEmitter } from 'events'
 
 import Call from './Call'
 
@@ -19,7 +19,7 @@ export default class Endpoint extends EventEmitter {
         DeviceEventEmitter.addListener('TeleCallScreenLocked', this._onCallScreenLocked.bind(this));
         DeviceEventEmitter.addListener('TeleMessageReceived', this._onMessageReceived.bind(this));
         DeviceEventEmitter.addListener('TeleConnectivityChanged', this._onConnectivityChanged.bind(this));
-    
+
         //DeviceEventEmitter.emit('TeleTest', {});
     }
 
@@ -30,20 +30,19 @@ export default class Endpoint extends EventEmitter {
      * @returns {Promise}
      */
     start(configuration) {
-        return new Promise(function(resolve, reject) {
-            
-            if(configuration.ReplaceDialer==true)
-            {
-            let tReplaceDialer = new ReplaceDialer();
+        return new Promise(function (resolve, reject) {
 
-            if (!tReplaceDialer.isDefault()) {
-              console.log('Is NOT default dialer, try to set.');
-              if (tReplaceDialer.setDefault()) {
-                console.log('Default dialer sucessfully set.');
-              } else {
-                console.log('Default dialer NOT set');
-              }
-            }
+            if (configuration.ReplaceDialer == true) {
+                let tReplaceDialer = new ReplaceDialer();
+
+                if (!tReplaceDialer.isDefault()) {
+                    console.log('Is NOT default dialer, try to set.');
+                    if (tReplaceDialer.setDefault()) {
+                        console.log('Default dialer sucessfully set.');
+                    } else {
+                        console.log('Default dialer NOT set');
+                    }
+                }
             }
 
             NativeModules.TeleModule.start(configuration, (successful, data) => {
@@ -90,7 +89,7 @@ export default class Endpoint extends EventEmitter {
     makeCall(sim, destination, callSettings, msgData) {
         //destination = this._normalize(account, destination);
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             NativeModules.TeleModule.makeCall(sim, destination, callSettings, msgData, (successful, data) => {
                 if (successful) {
                     resolve(new Call(data));
@@ -493,7 +492,7 @@ export default class Endpoint extends EventEmitter {
 
         return destination;
     }
-    */    
+    */
     // setUaConfig(UaConfig value)
     // setMaxCalls
     // setUserAgent
