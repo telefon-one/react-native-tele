@@ -157,7 +157,8 @@ public class TeleService extends InCallService {
      @Override
      public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
-        init(intent,0,0); //return null; return super(intent); 
+        init(intent,0,0); //return null;
+        return super.onBind(intent); 
      }
      
 
