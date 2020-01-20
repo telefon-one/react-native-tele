@@ -305,8 +305,13 @@ public class TeleService extends InCallService {
             return;
         }
 
-        Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
-                + ")");
+        //if (android.os.Build.VERSION.SDK_INT >= 29)
+        //{
+        //    Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
+        //        + ")");
+        //} else {
+            Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
+        //}
 
         switch (intent.getAction()) {
         // General actions
