@@ -311,7 +311,8 @@ public class TeleService extends InCallService {
         //        + ")");
         //} else {
         //    try {
-        //        Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
+        //
+                Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
         //}
 
         try {
@@ -659,10 +660,10 @@ public class TeleService extends InCallService {
             //call.makeCall(destination/*, callOpParam*/);
 
             String url = "tel:" + destination;
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+            intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //rnImmediatePhoneCallModule.reactContext.startActivity(intent);
-            getApplicationContext().startActivity(intent);
+            getApplicationContext().startActivity(intent2);
 
 
             //callOpParam.delete();
@@ -670,8 +671,9 @@ public class TeleService extends InCallService {
             // Automatically put other calls on hold.
             //doPauseParallelCalls(call);
 
-            mCalls.add(call);
-            mEmitter.fireIntentHandled(intent, call.toJson());
+            //mCalls.add(call);
+            //mEmitter.fireIntentHandled(intent, call.toJson());
+            mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
             mEmitter.fireIntentHandled(intent, e);
         }
