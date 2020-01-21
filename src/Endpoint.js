@@ -34,16 +34,20 @@ export default class Endpoint extends EventEmitter {
         return new Promise(function (resolve, reject) {
 
             if (configuration.ReplaceDialer == true) {
-                let tReplaceDialer = new ReplaceDialer();
-
-                if (!tReplaceDialer.isDefault()) {
-                    console.log('Is NOT default dialer, try to set.');
-                    if (tReplaceDialer.setDefault()) {
-                        console.log('Default dialer sucessfully set.');
-                    } else {
-                        console.log('Default dialer NOT set');
+                tReplaceDialer.isDefaultDialer((data) => {
+                    if (data)
+                      console.log('Is ALREADY default dialer.');
+                    else {
+                      console.log('Is NOT default dialer, try to set.');
+                      tReplaceDialer.setDefaultDialer((data) => {
+                        if (data) {
+                          console.log('Default dialer sucessfully set.');
+                        } else {
+                          console.log('Default dialer NOT set');
+                        }
+                      });
                     }
-                }
+                  });
             }
 
 /*            

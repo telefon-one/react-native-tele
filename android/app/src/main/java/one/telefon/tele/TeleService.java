@@ -57,6 +57,8 @@ public class TeleService extends InCallService {
     // private boolean mGSMIdle;
     //private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
 
+    private Call currentCall;
+
     // inCallService START
     @Override
     public void onCallAdded(Call call) {
@@ -66,6 +68,7 @@ public class TeleService extends InCallService {
 
         super.onCallAdded(call);
 
+        currentCall=call;
         TeleManager.updateCall(call, "onCallAdded");
         TeleCall tCall=new TeleCall(call);
         mCalls.add(tCall);
@@ -325,7 +328,7 @@ public class TeleService extends InCallService {
                     Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
                 }
         */
-        
+
         Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
         switch (intent.getAction()) {
         // General actions
@@ -687,10 +690,13 @@ public class TeleService extends InCallService {
 
     private void handleCallHangup(Intent intent) {
         try {
-            int callId = intent.getIntExtra("call_id", -1);
-            TeleCall call = findCall(callId);
+            //int callId = intent.getIntExtra("call_id", -1);
+            //TeleCall call = findCall(callId);
             //call.hangup(/*new CallOpParam(true)*/);
-            call.disconnect();
+            //call.disconnect();
+            //TODO: add mCalls find, not currentCall for simulateneous calls
+            currentCall.disconnect();
+
 
             mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
