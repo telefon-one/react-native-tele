@@ -5039,7 +5039,7 @@ react-native-replace-dialer@^0.0.11, "react-native-replace-dialer@https://github
 
 "react-native-tele@https://github.com/telefon-one/react-native-tele":
   version "0.0.8"
-  resolved "https://github.com/telefon-one/react-native-tele#55c672d11105c51bfe5821a806d4e0d77e85c28d"
+  resolved "https://github.com/telefon-one/react-native-tele#ae2ae78e6e0c36b925756da5f7429ff0e8faaf8f"
   dependencies:
     events "1.1.0"
     react-native-permissions "^2.0.9"
