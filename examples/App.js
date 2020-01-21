@@ -19,7 +19,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { Endpoint } from 'react-native-tele'
-import { ReplaceDialer } from 'react-native-replace-dialer'
+//import { ReplaceDialer } from 'react-native-replace-dialer'
 
 export default class App extends Component {
   constructor() {
@@ -27,6 +27,7 @@ export default class App extends Component {
   }
   async componentDidMount() {
 
+    /*
     let tReplaceDialer = new ReplaceDialer();
 
     if (!tReplaceDialer.isDefault()) {
@@ -36,13 +37,13 @@ export default class App extends Component {
       } else {
         console.log('Default dialer NOT set');
       }
-    }
+    }*/
 
 
     let tEndpoint = new Endpoint();
     console.log(tEndpoint);
 
-    let state = await tEndpoint.start(); // List of calls when RN context is started, could not be empty because Background service is working on Android
+    let state = await tEndpoint.start({ReplaceDialer:true,Permissions:true}); // List of calls when RN context is started, could not be empty because Background service is working on Android
     let { calls, settings } = state;
     console.log("calls",calls);
     console.log("settings",settings);

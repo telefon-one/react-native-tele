@@ -3545,10 +3545,10 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-native-replace-dialer@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/react-native-replace-dialer/-/react-native-replace-dialer-0.0.11.tgz#1863e4fd7b0374a1d90ef5dacd5bb18ac75418f5"
-  integrity sha512-rWR5CZ872fxQIpjfDKteBq6DCMemkQRvkeIUT9xd5TB1Bjg57p13p1xto8ukJHuJyykkQKcIH8+pNEshFH2yKQ==
+react-native-permissions@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.9.tgz#5eabdaa952dd099d14e3790af691f49ff2de0895"
+  integrity sha512-64F95x4Y1RqsQiPco+Qs+OAm3rKUTRfWDMpp1f0If9YfRXOxxVFJqf7mSlVvlSY4pZAhZgLVydOmA7aTTduPUw==
 
 react-refresh@^0.4.0:
   version "0.4.2"
