@@ -51,7 +51,8 @@ export default class App extends Component {
     let tEndpoint = new Endpoint();
     console.log(tEndpoint);
 
-    let state = await tEndpoint.start({ReplaceDialer:true,Permissions:true}); // List of calls when RN context is started, could not be empty because Background service is working on Android
+    //let state = await tEndpoint.start({ReplaceDialer:true,Permissions:true}); // List of calls when RN context is started, could not be empty because Background service is working on Android
+    let state = await tEndpoint.start({ReplaceDialer:false,Permissions:false}); // List of calls when RN context is started, could not be empty because Background service is working on Android
     let { calls, settings } = state;
     console.log("calls",calls);
     console.log("settings",settings);

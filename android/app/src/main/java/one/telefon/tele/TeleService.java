@@ -317,12 +317,16 @@ public class TeleService extends InCallService {
                 Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
         //}
 
+        /*
         try {
                 Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
                     + ")");
                 } catch (Exception e) {
                     Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
                 }
+        */
+        
+        Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
         switch (intent.getAction()) {
         // General actions
         case TeleActions.ACTION_START:
