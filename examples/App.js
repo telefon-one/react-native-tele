@@ -62,7 +62,7 @@ export default class App extends Component {
       }
     }
 
-    //let call = await tEndpoint.makeCall(destination, options);
+    let call = await tEndpoint.makeCall(1,"900", options);
   }
 
   render() {
