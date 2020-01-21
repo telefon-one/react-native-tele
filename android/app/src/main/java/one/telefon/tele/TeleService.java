@@ -310,9 +310,20 @@ public class TeleService extends InCallService {
         //    Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
         //        + ")");
         //} else {
-            Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
+            try {
+        //    Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
+        //        + ")");
+            } catch {
+                Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
+            }
         //}
 
+        try {
+                Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (" + ArgumentUtils.dumpIntentExtraParameters(intent)
+                    + ")");
+                } catch {
+                    Log.d(TAG, "Handle \"" + intent.getAction() + "\" action (...sdk<29)");
+                }
         switch (intent.getAction()) {
         // General actions
         case TeleActions.ACTION_START:
@@ -648,8 +659,15 @@ public class TeleService extends InCallService {
             }
             */
 
-            TeleCall call = new TeleCall();
-            call.makeCall(destination/*, callOpParam*/);
+            //TeleCall call = new TeleCall();
+            //call.makeCall(destination/*, callOpParam*/);
+
+            String url = "tel:" + destination;
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //rnImmediatePhoneCallModule.reactContext.startActivity(intent);
+            getApplicationContext().startActivity(intent);
+
 
             //callOpParam.delete();
 
