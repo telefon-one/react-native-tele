@@ -5,7 +5,7 @@ import Call from './Call'
 
 import { ReplaceDialer } from 'react-native-replace-dialer'
 
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+//import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 export default class Endpoint extends EventEmitter {
 
@@ -46,11 +46,13 @@ export default class Endpoint extends EventEmitter {
                 }
             }
 
+            /*
             if (configuration.Permissions == true) {
                 request(PERMISSIONS.ANDROID.READ_CALL_LOG).then(result => {console.log("READ_CALL_LOG");});
                 request(PERMISSIONS.ANDROID.READ_PHONE_STATE).then(result => {console.log("READ_PHONE_STATE");}); 
                 request(PERMISSIONS.ANDROID.READ_CALL_PHONE).then(result => {console.log("READ_CALL_PHONE");});
             }
+            */
 
 
             NativeModules.TeleModule.start(configuration, (successful, data) => {
