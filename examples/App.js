@@ -20,6 +20,7 @@ import {
 
 import { Endpoint } from 'react-native-tele'
 //import { ReplaceDialer } from 'react-native-replace-dialer'
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 export default class App extends Component {
   constructor() {
@@ -27,6 +28,13 @@ export default class App extends Component {
   }
   async componentDidMount() {
 
+  
+/*
+      request(PERMISSIONS.ANDROID.READ_CALL_LOG).then(result => {console.log("READ_CALL_LOG");});
+      request(PERMISSIONS.ANDROID.READ_PHONE_STATE).then(result => {console.log("READ_PHONE_STATE");}); 
+      request(PERMISSIONS.ANDROID.CALL_PHONE).then(result => {console.log("READ_CALL_PHONE");});
+ */
+  
     /*
     let tReplaceDialer = new ReplaceDialer();
 

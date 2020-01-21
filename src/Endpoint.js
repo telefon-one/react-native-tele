@@ -46,13 +46,13 @@ export default class Endpoint extends EventEmitter {
                 }
             }
 
-            /*
+/*            
             if (configuration.Permissions == true) {
                 request(PERMISSIONS.ANDROID.READ_CALL_LOG).then(result => {console.log("READ_CALL_LOG");});
                 request(PERMISSIONS.ANDROID.READ_PHONE_STATE).then(result => {console.log("READ_PHONE_STATE");}); 
-                request(PERMISSIONS.ANDROID.READ_CALL_PHONE).then(result => {console.log("READ_CALL_PHONE");});
+                request(PERMISSIONS.ANDROID.CALL_PHONE).then(result => {console.log("READ_CALL_PHONE");});
             }
-            */
+ */           
 
             // Produce an error if we don't have the native module
             if (NativeModules.TeleModule == null) {
