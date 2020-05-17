@@ -68,7 +68,7 @@ public class TeleService extends InCallService {
         }
 
         TeleCallIds++;
-        TeleCall tCall=new TeleCall(call);
+        TeleCall tCall=new TeleCall(call1);
         tCall.id=TeleCallIds;
         mCalls.add(tCall);
 
