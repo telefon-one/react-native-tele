@@ -79,7 +79,7 @@ public class TeleService extends InCallService {
     private void TeleCallRemove(Call call1) {
         for (TeleCall call : mCalls) {
             if (call.getDetails().getHash() == call1.getDetails().getHash()) {
-                mCalls.remove(call)
+                mCalls.remove(call);
                 return;
             }
         }
