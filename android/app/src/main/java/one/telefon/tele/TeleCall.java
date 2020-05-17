@@ -249,7 +249,7 @@ public class TeleCall /* extends Call */ {
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
 
-            json.put("details", call.Details.toString());
+            json.put("details", call.getDetails().toString());
             
             json.put("simSlot", 1); //TODO ADD
 

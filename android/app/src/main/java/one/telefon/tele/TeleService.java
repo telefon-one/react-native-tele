@@ -684,7 +684,8 @@ public class TeleService extends InCallService {
 
             //mCalls.add(call);
             //mEmitter.fireIntentHandled(intent, call.toJson());
-            mEmitter.fireIntentHandled(intent,'{\"_callId":1}');
+            //mEmitter.fireIntentHandled(intent,"{\"_callId\":1}");
+            mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
             mEmitter.fireIntentHandled(intent, e);
         }
