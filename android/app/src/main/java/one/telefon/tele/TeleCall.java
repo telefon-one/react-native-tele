@@ -229,7 +229,7 @@ public class TeleCall /* extends Call */ {
             String stateText="TELE_INV_STATE_UNKNOWN";
             String lastReason="";
 
-            if (state_android == Call.STATE_CONNECTING) { stateText="TELE_INV_STATE_CALLING"; /*incoming=false;*/ } //TELE_INV_STATE_CALLING //PJSIP_INV_STATE_CALLING
+            if (state_android == Call.STATE_CONNECTING) { stateText="TELE_INV_STATE_CONNECTING"; /*incoming=false;*/ } //TELE_INV_STATE_CALLING //PJSIP_INV_STATE_CALLING
             if (state_android == Call.STATE_RINGING) { stateText="TELE_INV_STATE_RINGING"; /*this.incoming=true;*/ } //PJSIP_INV_STATE_INCOMING //TELE_INV_STATE_INCOMING
             
         
