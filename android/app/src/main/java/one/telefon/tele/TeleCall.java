@@ -29,6 +29,7 @@ public class TeleCall /* extends Call */ {
     private boolean isMuted = false;
 
     public int id;
+    public int hash;
 
     public TeleCall() {
         //TeleManager.TeleIdCount++;
@@ -39,6 +40,7 @@ public class TeleCall /* extends Call */ {
         //TeleManager.TeleIdCount++;
         //this.id=TeleManager.TeleIdCount;
         call=mCall;
+        hash=call.getDetails().hashCode();
     }
 
     public int getId() {
