@@ -10,7 +10,7 @@ export default class Call {
             state, stateText, held, muted, speaker,
             connectDuration, totalDuration,
             remoteOfferer, remoteAudioCount, remoteVideoCount, audioCount, videoCount,
-            lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, details
+            lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, details, hashCode
         }) {
         
         //console.log(details);
@@ -71,6 +71,7 @@ export default class Call {
         this._connectTime=connectTime;
         this._constructionTime = Math.round(new Date().getTime() / 1000);
 
+        this._hashCode=hashCode;
         this._details=details;
     }
 
