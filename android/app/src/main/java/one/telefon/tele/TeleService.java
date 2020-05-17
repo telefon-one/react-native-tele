@@ -693,12 +693,11 @@ public class TeleService extends InCallService {
 
     private void handleCallHangup(Intent intent) {
         try {
-            //int callId = intent.getIntExtra("call_id", -1);
-            //TeleCall call = findCall(callId);
-            //call.hangup(/*new CallOpParam(true)*/);
-            //call.disconnect();
+            int callId = intent.getIntExtra("call_id", -1);
+            TeleCall call = findCall(callId);
+            call.disconnect();
             //TODO: add mCalls find, not currentCall for simulateneous calls
-            currentCall.disconnect();
+            //currentCall.disconnect();
 
 
             mEmitter.fireIntentHandled(intent);
@@ -710,14 +709,9 @@ public class TeleService extends InCallService {
     private void handleCallDecline(Intent intent) {
         try {
             int callId = intent.getIntExtra("call_id", -1);
-
-            // -----
             TeleCall call = findCall(callId);
-            //CallOpParam prm = new CallOpParam(true);
-            //prm.setStatusCode("PJSIP_SC_DECLINE");
-            //call.hangup(/*prm*/);
             call.reject();
-            //prm.delete();
+            
 
             mEmitter.fireIntentHandled(intent);
         } catch (Exception e) {
@@ -728,12 +722,8 @@ public class TeleService extends InCallService {
     private void handleCallAnswer(Intent intent) {
         try {
             int callId = intent.getIntExtra("call_id", -1);
-
-            // -----
             TeleCall call = findCall(callId);
-            //CallOpParam prm = new CallOpParam();
-            //prm.setStatusCode("PJSIP_SC_OK");
-            call.answer(); /*prm*/
+            call.answer();
 
             // Automatically put other calls on hold.
             //doPauseParallelCalls(call);
@@ -933,9 +923,9 @@ public class TeleService extends InCallService {
 
     private TeleCall findCall(int id) throws Exception {
         for (TeleCall call : mCalls) {
-            /*if (call.getId() == id) {
+            if (call.getId() == id) {
                 return call;
-            }*/
+            }
         }
 
         throw new Exception("Call with specified \"" + id + "\" id not found");

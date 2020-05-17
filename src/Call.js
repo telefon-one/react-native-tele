@@ -12,7 +12,8 @@ export default class Call {
             remoteOfferer, remoteAudioCount, remoteVideoCount, audioCount, videoCount,
             lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, details
         }) {
-            console.log(details);
+        
+        //console.log(details);
         let remoteNumber = null;
         let remoteName = null;
 

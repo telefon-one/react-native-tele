@@ -15,6 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.telecom.Call;
 
+private int idCount=0;
+
 public class TeleCall /* extends Call */ {
     private static String TAG = "onte.telefon.tele.TeleCall";
 
@@ -23,12 +25,21 @@ public class TeleCall /* extends Call */ {
     private boolean isHeld = false;
     private boolean isMuted = false;
 
-    public TeleCall() {
+    private int id;
 
+    public TeleCall() {
+        idCount++;
+        this.id=idCount;
     }
 
     public TeleCall(Call mCall) {
+        idCount++;
+        this.id=idCount;
         call=mCall;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public void answer()
@@ -248,7 +259,8 @@ public class TeleCall /* extends Call */ {
             json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
-            json.put("callId", call.getDetails().hashCode());
+            json.put("callId", id);
+            json.put("hashCode", call.getDetails().hashCode());
 
             json.put("details", call.getDetails().toString());
             
