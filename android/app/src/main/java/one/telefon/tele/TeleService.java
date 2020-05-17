@@ -62,7 +62,7 @@ public class TeleService extends InCallService {
 
     private TeleCall TeleCallGet(Call call1) {
         for (TeleCall call : mCalls) {
-            if (call.hash == call1.getDetails().hashCode()) {
+            if (call.call.getDetails().getHandle().toString() == call1.getDetails().getHandle().toString()) {
                 return call;
             }
         }
@@ -78,7 +78,7 @@ public class TeleService extends InCallService {
 
     private void TeleCallRemove(Call call1) {
         for (TeleCall call : mCalls) {
-            if (call.hash == call1.getDetails().hashCode()) {
+            if (call.call.getDetails().getHandle().toString() == call1.getDetails().getHandle().toString()) {
                 mCalls.remove(call);
                 return;
             }

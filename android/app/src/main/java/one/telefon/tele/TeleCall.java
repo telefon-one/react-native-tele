@@ -23,7 +23,7 @@ import android.telecom.Call;
 public class TeleCall /* extends Call */ {
     private static String TAG = "onte.telefon.tele.TeleCall";
 
-    private Call call;
+    public Call call;
 
     private boolean isHeld = false;
     private boolean isMuted = false;
@@ -264,6 +264,7 @@ public class TeleCall /* extends Call */ {
             json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
+            json.put("id", id);
             json.put("callId", id);
             json.put("hashCode", call.getDetails().hashCode());
 

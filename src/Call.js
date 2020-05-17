@@ -70,6 +70,8 @@ export default class Call {
         this._creationTime=creationTime;
         this._connectTime=connectTime;
         this._constructionTime = Math.round(new Date().getTime() / 1000);
+
+        this._details=details;
     }
 
     /**
