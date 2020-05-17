@@ -15,8 +15,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.telecom.Call;
 
-private int idCount=0;
-
+public class TeleId {
+    public static int idCount=0;
+}
 public class TeleCall /* extends Call */ {
     private static String TAG = "onte.telefon.tele.TeleCall";
 
@@ -28,13 +29,13 @@ public class TeleCall /* extends Call */ {
     private int id;
 
     public TeleCall() {
-        idCount++;
-        this.id=idCount;
+        TeleId.idCount++;
+        this.id=TeleId.idCount;
     }
 
     public TeleCall(Call mCall) {
-        idCount++;
-        this.id=idCount;
+        TeleId.idCount++;
+        this.id=TeleId.idCount;
         call=mCall;
     }
 
