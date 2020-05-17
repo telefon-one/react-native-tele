@@ -248,6 +248,7 @@ public class TeleCall /* extends Call */ {
             json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
+            json.put("callId", call.getDetails().hashCode());
 
             json.put("details", call.getDetails().toString());
             
