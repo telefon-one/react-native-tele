@@ -672,6 +672,8 @@ public class TeleService extends InCallService {
             Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url));
             intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //rnImmediatePhoneCallModule.reactContext.startActivity(intent);
+            //TODO: ADD 2SIM
+            
             getApplicationContext().startActivity(intent2);
 
 
@@ -682,7 +684,7 @@ public class TeleService extends InCallService {
 
             //mCalls.add(call);
             //mEmitter.fireIntentHandled(intent, call.toJson());
-            mEmitter.fireIntentHandled(intent);
+            mEmitter.fireIntentHandled(intent,'{\"_callId":1}');
         } catch (Exception e) {
             mEmitter.fireIntentHandled(intent, e);
         }

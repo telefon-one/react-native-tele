@@ -226,16 +226,19 @@ public class TeleCall /* extends Call */ {
             int connectDuration = -1;
         
             String state;
-            String stateText="PJSIP_INV_STATE_UNKNOWN";
+            String stateText="TELE_INV_STATE_UNKNOWN";
             String lastReason="";
 
-            if (state_android == Call.STATE_CONNECTING) { stateText="PJSIP_INV_STATE_CALLING"; /*incoming=false;*/ }
-            if (state_android == Call.STATE_RINGING) { stateText="PJSIP_INV_STATE_INCOMING"; /*this.incoming=true;*/ }
-         
-            if (state_android == Call.STATE_DIALING) { stateText="PJSIP_INV_STATE_EARLY"; /* this.incoming=false; */ }
-            if (state_android == Call.STATE_ACTIVE) { stateText="PJSIP_INV_STATE_CONFIRMED"; } 
-            if (state_android == Call.STATE_DISCONNECTED) { stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
-            if (state_android == Call.STATE_DISCONNECTING) { /*TODO*/ stateText="PJSIP_INV_STATE_DISCONNECTED"; lastReason="PJSIP_SC_OK"; }
+            if (state_android == Call.STATE_CONNECTING) { stateText="TELE_INV_STATE_CALLING"; /*incoming=false;*/ } //TELE_INV_STATE_CALLING //PJSIP_INV_STATE_CALLING
+            if (state_android == Call.STATE_RINGING) { stateText="TELE_INV_STATE_RINGING"; /*this.incoming=true;*/ } //PJSIP_INV_STATE_INCOMING //TELE_INV_STATE_INCOMING
+            
+        
+            
+            if (state_android == Call.STATE_DIALING) { stateText="TELE_INV_STATE_DIALING"; /* this.incoming=false; */ } //TELE_INV_STATE_EARLY   //PJSIP_INV_STATE_EARLY 
+            if (state_android == Call.STATE_ACTIVE) { stateText="TELE_INV_STATE_ACTIVE"; } //TELE_INV_STATE_CONFIRMED //PJSIP_INV_STATE_CONFIRMED
+            if (state_android == Call.STATE_DISCONNECTING) { stateText="TELE_INV_STATE_DISCONNECTING"; /*lastReason="PJSIP_SC_OK"; */ }    
+            if (state_android == Call.STATE_DISCONNECTED) { stateText="TELE_INV_STATE_DISCONNECTED"; /*lastReason="PJSIP_SC_OK";*/ } //PJSIP_INV_STATE_DISCONNECTED
+            
         
             state=stateText;
 
@@ -245,6 +248,8 @@ public class TeleCall /* extends Call */ {
             json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
+
+            json.put("details", call.Details.toString());
             
             json.put("simSlot", 1); //TODO ADD
 

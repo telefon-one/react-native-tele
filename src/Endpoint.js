@@ -117,6 +117,7 @@ export default class Endpoint extends EventEmitter {
         return new Promise(function (resolve, reject) {
             NativeModules.TeleModule.makeCall(sim, destination, callSettings, msgData, (successful, data) => {
                 if (successful) {
+                    console.log("!!!!",data)
                     resolve(new Call(data));
                 } else {
                     reject(data);
