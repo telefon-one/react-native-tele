@@ -17,6 +17,8 @@ import com.facebook.react.HeadlessJsTaskService;
 import one.telefon.tele.TeleModule;
 
 public class TeleManager {
+
+
     private static String LOG_TAG = "LOG_telefon.one[TeleManager]";
 
     private static Call currentCall;

@@ -58,6 +58,32 @@ public class TeleService extends InCallService {
     //private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
 
     private Call currentCall;
+    private int TeleCallIds=0;
+
+    private TeleCall TeleCallGet(Call call1) {
+        for (TeleCall call : mCalls) {
+            if (call.getDetails().getHash() == call1.getDetails().getHash()) {
+                return call;
+            }
+        }
+
+        TeleCallIds++;
+        TeleCall tCall=new TeleCall(call);
+        tCall.id=TeleCallIds;
+        mCalls.add(tCall);
+
+        return tCall;
+    }
+
+
+    private void TeleCallRemove(Call call1) {
+        for (TeleCall call : mCalls) {
+            if (call.getDetails().getHash() == call1.getDetails().getHash()) {
+                mCalls.remove(call)
+                return;
+            }
+        }
+    }
 
     // inCallService START
     @Override
@@ -70,9 +96,7 @@ public class TeleService extends InCallService {
 
         currentCall=call;
         TeleManager.updateCall(call, "onCallAdded");
-        TeleCall tCall=new TeleCall(call);
-        mCalls.add(tCall);
-
+        TeleCall tCall=TeleCallGet(call);
         
         //TODO emitCallRec
         mEmitter.fireCallReceivedEvent(tCall);
@@ -86,7 +110,8 @@ public class TeleService extends InCallService {
                 Log.d(TAG, "onCallDestroyed");
                 super.onCallDestroyed(call);
                 TeleManager.updateCall(call, "onCallDestroyed");
-                TeleCall tCall=new TeleCall(call);                
+                TeleCall tCall=TeleCallGet(call);  
+
                 //TODO emitCallTerm
                 mEmitter.fireCallTerminated(tCall);
             }
@@ -98,7 +123,7 @@ public class TeleService extends InCallService {
                 super.onDetailsChanged(call, details);
                 TeleManager.updateCall(call, "onDetailsChanged");
 
-                TeleCall tCall=new TeleCall(call);                
+                TeleCall tCall=TeleCallGet(call);               
                 //TODO emitCallChanged
                 mEmitter.fireCallChanged(tCall);
             }
@@ -110,7 +135,7 @@ public class TeleService extends InCallService {
 
                 TeleManager.updateCall(call, "onStateChanged");
 
-                TeleCall tCall=new TeleCall(call);                
+                TeleCall tCall=TeleCallGet(call);               
                 //TODO emitCallChanged
                 mEmitter.fireCallChanged(tCall);
             }
@@ -145,7 +170,7 @@ public class TeleService extends InCallService {
         super.onCallRemoved(call);
 
         TeleManager.updateCall(call, "onCallRemoved");
-
+        TeleCallRemove(call); 
         // ADD: call.unregisterCallback(callCallback);
         // sendHeadless("TeleService", "onCallRemoved", "", "", 0, 0, 0, 0);
     }
@@ -946,7 +971,7 @@ public class TeleService extends InCallService {
         // Automatically decline incoming call when user uses GSM
         //StartApp();
 
-        mCalls.add(call);
+    
         mEmitter.fireCallReceivedEvent(call);
     }
 

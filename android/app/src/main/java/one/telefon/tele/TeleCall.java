@@ -15,9 +15,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.telecom.Call;
 
-public class TeleId {
-    public static int idCount=0;
-}
+//import one.telefon.tele.TeleManager;
+//private class TeleId {
+//    public static int TeleIdCount=0;
+//}
+
 public class TeleCall /* extends Call */ {
     private static String TAG = "onte.telefon.tele.TeleCall";
 
@@ -26,16 +28,16 @@ public class TeleCall /* extends Call */ {
     private boolean isHeld = false;
     private boolean isMuted = false;
 
-    private int id;
+    public int id;
 
     public TeleCall() {
-        TeleId.idCount++;
-        this.id=TeleId.idCount;
+        //TeleManager.TeleIdCount++;
+        //this.id=TeleManager.TeleIdCount;
     }
 
     public TeleCall(Call mCall) {
-        TeleId.idCount++;
-        this.id=TeleId.idCount;
+        //TeleManager.TeleIdCount++;
+        //this.id=TeleManager.TeleIdCount;
         call=mCall;
     }
 
