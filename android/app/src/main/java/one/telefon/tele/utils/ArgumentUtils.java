@@ -118,5 +118,20 @@ public class ArgumentUtils {
         return gson.toJson(data);
     }
 
+    public static String dumpBundle(Bundle bundle) {
+        if (bundle == null) {
+            return "empty bundle";
+        }
+
+        Set<String> keys = bundle.keySet();
+        Map<String, Object> data = new HashMap<>(keys.size());
+
+        for (String key : keys) {
+            data.put(key, bundle.get(key));
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson(data);
+    }
 
 }

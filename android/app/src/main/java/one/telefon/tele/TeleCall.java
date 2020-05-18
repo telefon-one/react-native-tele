@@ -212,26 +212,27 @@ public class TeleCall /* extends Call */ {
  
 
         try {
-        String uri = details.getHandle().toString();
+            int state_android = call.getState();
+            String uri = details.getHandle().toString();
             String name = details.getCallerDisplayName();
+            long connectTimeMillis=-1;
+            long creationTimeMillis=-1;
+            int disconnectCause=-1;
+            int direction=-1;
+            Bundle extras
 
             // API SPECIFIED
-            // long creationTimeMillis;
-            // if (android.os.Build.VERSION.SDK_INT >= 26) {
-            // if (Build.VERSION.SDK_INT >= 26) {
-            // creationTimeMillis = details.getCreationTimeMillis();
-            // } else {
-            // creationTimeMillis = 0;
-            // }
-            // int direction;
-            // if (android.os.Build.VERSION.SDK_INT >= 29) {
-            // direction = details.getCallDirection();
-            // } else {
-            // direction = 0;
-            // }
+            if (android.os.Build.VERSION.SDK_INT >= 23) connectTimeMillis = details.getConnectTimeMillis();
+            if (android.os.Build.VERSION.SDK_INT >= 26) creationTimeMillis = details.getcreationTimeMillis();
+            if (android.os.Build.VERSION.SDK_INT >= 23) disconnectCause = details.getDisconnectCause();
+            if (android.os.Build.VERSION.SDK_INT >= 29) direction = details.getCallDirection();
 
-            int state_android = call.getState();
-            long connectTimeMillis = details.getConnectTimeMillis();
+            if (android.os.Build.VERSION.SDK_INT >= 23) extras=details.getExtras();
+            
+            // if (Build.VERSION.SDK_INT >= 26) {
+
+            
+            
             
             // -----
             // AudioManager audioManager = (AudioManager)
@@ -259,17 +260,14 @@ public class TeleCall /* extends Call */ {
             state=stateText;
 
             json.put("state_android", state_android);
-            json.put("state", state);
-            json.put("stateText", stateText);
             json.put("lastReason", lastReason);
             json.put("remoteContact", name);
             json.put("remoteUri", uri);
-            json.put("id", id);
-            json.put("callId", id);
             json.put("hashCode", call.getDetails().hashCode());
-
             json.put("details", call.getDetails().toString());
-            
+            json.put("extras", dumpBundle(extras));
+    
+
             json.put("simSlot", 1); //TODO ADD
 
             // if (info.getState() == "PJSIP_INV_STATE_CONFIRMED" || info.getState() ==
@@ -281,6 +279,8 @@ public class TeleCall /* extends Call */ {
             // json.put("id", getId());
             // json.put("callId", info.getCallIdString());
             // json.put("accountId", account.getId());
+            json.put("id", id);
+            json.put("callId", id);
 
             // -----
             // json.put("localContact", info.getLocalContact());
@@ -288,10 +288,16 @@ public class TeleCall /* extends Call */ {
 
 
             // -----
-            // json.put("state", state);
+            json.put("state", state);
             // json.put("stateText", info.getStateText());
+            json.put("stateText", stateText);
             // json.put("connectDuration", connectDuration);
             // json.put("totalDuration", info.getTotalDuration().getSec());
+            json.put("connectTimeMillis",connectTimeMillis);
+            json.put("creationTimeMillis",creationTimeMillis);
+            json.put("disconnectCause",disconnectCause);
+            json.put("direction",direction);
+
             // json.put("held", isHeld);
             // json.put("muted", isMuted);
             // json.put("speaker", speaker);
