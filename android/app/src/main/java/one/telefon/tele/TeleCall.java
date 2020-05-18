@@ -229,7 +229,7 @@ public class TeleCall /* extends Call */ {
             if (android.os.Build.VERSION.SDK_INT >= 23) connectTimeMillis = details.getConnectTimeMillis();
             if (android.os.Build.VERSION.SDK_INT >= 26) creationTimeMillis = details.getCreationTimeMillis();
             if (android.os.Build.VERSION.SDK_INT >= 23) disconnectCause = details.getDisconnectCause().getCode();
-            //if (android.os.Build.VERSION.SDK_INT >= 29) try {direction = details.getCallDirection();} catch {direction=0;}
+            //if (android.os.Build.VERSION.SDK_INT >= 29) direction = details.getCallDirection();
 
             //if (android.os.Build.VERSION.SDK_INT >= 23) extras=details.getExtras();
             
@@ -275,6 +275,7 @@ public class TeleCall /* extends Call */ {
             json.put("simSlot", call.getDetails().getAccountHandle().toString()); //TODO ADD
             json.put("simSlot1", call.getDetails().getAccountHandle().getComponentName().toString()); //TODO ADD
             json.put("simSlot2", call.getDetails().getAccountHandle().getId()); //TODO ADD
+            json.put("iccid", call.getDetails().getAccountHandle().getId()); //TODO ADD
 
 
             // if (info.getState() == "PJSIP_INV_STATE_CONFIRMED" || info.getState() ==

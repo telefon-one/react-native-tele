@@ -35,6 +35,16 @@ import java.util.Map;
 
 import android.telecom.Call;
 import android.telecom.InCallService;
+import android.annotation.TargetApi;
+
+import android.content.ComponentName;
+
+import android.os.Method;
+import android.telecom.SubscriptionManager;
+import android.telecom.PhoneAccountHandle;
+
+
+
 
 public class TeleService extends InCallService {
     private static String TAG = "one.telefon.tele.TeleService";
@@ -60,16 +70,15 @@ public class TeleService extends InCallService {
     private Call currentCall;
     private int TeleCallIds=0;
 
+    @TargetApi(26)
     private TeleCall TeleCallGet(Call call1) {
         for (TeleCall call : mCalls) {
             if (call.call.getDetails().getHandle().toString() == call1.getDetails().getHandle().toString()) {
-                if (android.os.Build.VERSION.SDK_INT >= 26) {
-                    if (call.call.getDetails().getCreationTimeMillis()==call1.getDetails().getCreationTimeMillis()) {
-                        return call;
-                    }
-                } else {
-                    return call;
-                }
+                if (android.os.Build.VERSION.SDK_INT >= 23)                
+                    if (call.call.getDetails().getAccountHandle().getId()!=call1.getDetails().getAccountHandle().getId()) continue;                
+                if (android.os.Build.VERSION.SDK_INT >= 26)                 
+                    if (call.call.getDetails().getCreationTimeMillis()!=call1.getDetails().getCreationTimeMillis()) continue;
+                return call;
             }
         }
 
@@ -638,6 +647,24 @@ public class TeleService extends InCallService {
     } 
     */
 
+    private final static String simSlotName[] = {
+        "extra_asus_dial_use_dualsim",
+        "com.android.phone.extra.slot",
+        "slot",
+        "simslot",
+        "sim_slot",
+        "subscription",
+        "Subscription",
+        "phone",
+        "com.android.phone.DialingMode",
+        "simSlot",
+        "slot_id",
+        "simId",
+        "simnum",
+        "phone_type",
+        "slotId",
+        "slotIdx" };
+
     private void handleCallMake(Intent intent) {
         try {
             //int accountId = intent.getIntExtra("account_id", -1);
@@ -699,13 +726,46 @@ public class TeleService extends InCallService {
             //TeleCall call = new TeleCall();
             //call.makeCall(destination/*, callOpParam*/);
 
+            int simslot=0;
+
+
+
+
             String url = "tel:" + destination;
-            Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+            Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url)); // CALL - набор. DIAL - показать через UI, но не набрать
             intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //rnImmediatePhoneCallModule.reactContext.startActivity(intent);
-            //TODO: ADD 2SIM
+            
+            intent2.putExtra("gateway", 1);
+
+            for (String s : simSlotName)
+                intent2.putExtra(s, simslot);
+            
+            //works only for API >= 21
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            //    intent2.putExtra("android.telecom.extra.PHONE_ACCOUNT_HANDLE", (Parcelable) " here You have to get phone account handle list by using telecom manger for both sims:- using this method getCallCapablePhoneAccounts()");
+ 
+            try {
+                final Method getSubIdMethod = SubscriptionManager.class.getDeclaredMethod("getSubId", int.class);
+                getSubIdMethod.setAccessible(true);
+                final long subIdForSlot = ((long[]) getSubIdMethod.invoke(SubscriptionManager.class, simslot))[0];
+        
+                final ComponentName componentName = new ComponentName("com.android.phone", "com.android.services.telephony.TelephonyConnectionService");
+                final PhoneAccountHandle phoneAccountHandle = new PhoneAccountHandle(componentName, String.valueOf(subIdForSlot));
+                intent.putExtra("android.telecom.extra.PHONE_ACCOUNT_HANDLE", phoneAccountHandle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             
             getApplicationContext().startActivity(intent2);
+
+
+
+
+
+
+
+
+
 
 
             //callOpParam.delete();
