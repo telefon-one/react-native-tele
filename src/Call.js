@@ -10,9 +10,19 @@ export default class Call {
             state, stateText, held, muted, speaker,
             connectDuration, totalDuration,
             remoteOfferer, remoteAudioCount, remoteVideoCount, audioCount, videoCount,
-            lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, details, hashCode
+            lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, 
+            details, hashCode, extras,
+            connectTimeMillis,creationTimeMillis,disconnectCause,direction
+            
         }) {
         
+            console.log("connectTimeMillis",connectTimeMillis);
+            console.log("creationTimeMillis",creationTimeMillis);
+            console.log("disconnectCause",disconnectCause);
+            console.log("direction",direction);
+            console.log("extras",extras);
+
+
         //console.log(details);
         let remoteNumber = null;
         let remoteName = null;

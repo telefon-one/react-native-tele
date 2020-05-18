@@ -1,9 +1,12 @@
 package one.telefon.tele;
 
+import one.telefon.tele.utils.ArgumentUtils;
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.util.Log;
 import android.view.View;
+import android.os.Bundle;
 
 import com.google.gson.Gson;
 
@@ -14,6 +17,7 @@ import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.telecom.Call;
+
 
 //import one.telefon.tele.TeleManager;
 //private class TeleId {
@@ -219,15 +223,15 @@ public class TeleCall /* extends Call */ {
             long creationTimeMillis=-1;
             int disconnectCause=-1;
             int direction=-1;
-            Bundle extras
+            //Bundle extras;
 
             // API SPECIFIED
             if (android.os.Build.VERSION.SDK_INT >= 23) connectTimeMillis = details.getConnectTimeMillis();
-            if (android.os.Build.VERSION.SDK_INT >= 26) creationTimeMillis = details.getcreationTimeMillis();
-            if (android.os.Build.VERSION.SDK_INT >= 23) disconnectCause = details.getDisconnectCause();
-            if (android.os.Build.VERSION.SDK_INT >= 29) direction = details.getCallDirection();
+            if (android.os.Build.VERSION.SDK_INT >= 26) creationTimeMillis = details.getCreationTimeMillis();
+            if (android.os.Build.VERSION.SDK_INT >= 23) disconnectCause = details.getDisconnectCause().getCode();
+            //if (android.os.Build.VERSION.SDK_INT >= 29) try {direction = details.getCallDirection();} catch {direction=0;}
 
-            if (android.os.Build.VERSION.SDK_INT >= 23) extras=details.getExtras();
+            //if (android.os.Build.VERSION.SDK_INT >= 23) extras=details.getExtras();
             
             // if (Build.VERSION.SDK_INT >= 26) {
 
@@ -265,7 +269,7 @@ public class TeleCall /* extends Call */ {
             json.put("remoteUri", uri);
             json.put("hashCode", call.getDetails().hashCode());
             json.put("details", call.getDetails().toString());
-            json.put("extras", dumpBundle(extras));
+            json.put("extras", ArgumentUtils.dumpBundle(details.getExtras()));
     
 
             json.put("simSlot", 1); //TODO ADD

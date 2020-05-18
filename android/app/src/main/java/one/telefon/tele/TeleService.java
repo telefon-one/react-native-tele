@@ -64,7 +64,7 @@ public class TeleService extends InCallService {
         for (TeleCall call : mCalls) {
             if (call.call.getDetails().getHandle().toString() == call1.getDetails().getHandle().toString()) {
                 if (android.os.Build.VERSION.SDK_INT >= 26) {
-                    if (call.call.getDetails().getcreationTimeMillis()==call1.getDetails().getcreationTimeMillis()) {
+                    if (call.call.getDetails().getCreationTimeMillis()==call1.getDetails().getCreationTimeMillis()) {
                         return call;
                     }
                 } else {
