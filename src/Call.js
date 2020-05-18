@@ -22,7 +22,7 @@ export default class Call {
             console.log("disconnectCause",disconnectCause);
             console.log("direction",direction);
             console.log("extras",extras);
-            console.log("extras",extras);
+            console.log("simSlot",simSlot);
             console.log("simSlot1",simSlot1);
             console.log("simSlot2",simSlot2);
 
