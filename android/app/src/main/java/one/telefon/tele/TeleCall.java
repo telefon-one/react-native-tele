@@ -34,6 +34,7 @@ public class TeleCall /* extends Call */ {
 
     public int id;
     public int hash;
+    public int direction=-1;
 
     public TeleCall() {
         //TeleManager.TeleIdCount++;
@@ -222,7 +223,6 @@ public class TeleCall /* extends Call */ {
             long connectTimeMillis=-1;
             long creationTimeMillis=-1;
             int disconnectCause=-1;
-            int direction=-1;
             //Bundle extras;
 
             // API SPECIFIED
@@ -235,8 +235,9 @@ public class TeleCall /* extends Call */ {
             
             // if (Build.VERSION.SDK_INT >= 26) {
 
+           
+
                 
-            
             
             // -----
             // AudioManager audioManager = (AudioManager)
@@ -253,7 +254,12 @@ public class TeleCall /* extends Call */ {
             if (state_android == Call.STATE_CONNECTING) { stateText="TELE_INV_STATE_CONNECTING"; /*incoming=false;*/ } //TELE_INV_STATE_CALLING //PJSIP_INV_STATE_CALLING
             if (state_android == Call.STATE_RINGING) { stateText="TELE_INV_STATE_RINGING"; /*this.incoming=true;*/ } //PJSIP_INV_STATE_INCOMING //TELE_INV_STATE_INCOMING
             
-        
+            if (state_android == Call.STATE_RINGING) {direction=0;}
+            /*
+                DIRECTION_INCOMING 0
+                DIRECTION_OUTGOING 1
+                DIRECTION_UNKNOWN -1
+            */
             
             if (state_android == Call.STATE_DIALING) { stateText="TELE_INV_STATE_DIALING"; /* this.incoming=false; */ } //TELE_INV_STATE_EARLY   //PJSIP_INV_STATE_EARLY 
             if (state_android == Call.STATE_ACTIVE) { stateText="TELE_INV_STATE_ACTIVE"; } //TELE_INV_STATE_CONFIRMED //PJSIP_INV_STATE_CONFIRMED

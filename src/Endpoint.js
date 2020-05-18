@@ -72,8 +72,15 @@ export default class Endpoint extends EventEmitter {
 
             NativeModules.TeleModule.start(configuration, (successful, data) => {
                 if (successful) {
+                    let accounts = [];
                     let calls = [];
-
+            //console.log("data",data);
+                    if (data.hasOwnProperty('accounts')) {
+                        for (let d of data['accounts']) {
+                            //accounts.push(new Account(d));
+                            accounts.push(d);
+                        }
+                    }
 
                     if (data.hasOwnProperty('calls')) {
                         for (let d of data['calls']) {
@@ -84,12 +91,13 @@ export default class Endpoint extends EventEmitter {
                     let extra = {};
 
                     for (let key in data) {
-                        if (data.hasOwnProperty(key) && key != "calls") {
+                        if (data.hasOwnProperty(key) && key != "accounts" && key != "calls") {
                             extra[key] = data[key];
                         }
                     }
 
                     resolve({
+                        accounts,
                         calls,
                         ...extra
                     });

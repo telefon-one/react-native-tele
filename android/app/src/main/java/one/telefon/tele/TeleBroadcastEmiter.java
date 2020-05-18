@@ -8,6 +8,15 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+
+//accounts
+import android.content.ComponentName;
+import java.lang.reflect.Method;
+import android.telephony.SubscriptionManager;
+import android.telephony.SubscriptionInfo;
+import android.telecom.PhoneAccountHandle;
+
+
 public class TeleBroadcastEmiter {
 
     private static String TAG = "one.telefon.tele.TeleBroadcastEmiter";
@@ -22,9 +31,39 @@ public class TeleBroadcastEmiter {
         try {
             JSONArray dataAccounts = new JSONArray();
             /*
+            
             for (TeleAccount account : accounts) {
                 dataAccounts.put(account.toJson());
             }*/
+
+            try {
+                JSONObject data1 = new JSONObject();
+                SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
+                
+                for (SubscriptionInfo sub : mSubscriptionManager.getActiveSubscriptionInfoList()) {
+                    data1 = new JSONObject();
+                    data1.put("mnc",sub.getMnc());
+                    //29 data1.put("mncString",sub.getMncString());
+                    data1.put("mnc",sub.getMcc());
+                    //29 data1.put("mccString",sub.getMccString());
+
+                    data1.put("carrierName",sub.getCarrierName());
+                    data1.put("countryIso",sub.getCountryIso());
+                    data1.put("displayName",sub.getDisplayName());
+                    data1.put("iccId",sub.getIccId());
+                    data1.put("iconTint",sub.getIconTint());
+
+                    data1.put("number",sub.getNumber());
+                    data1.put("simSlotIndex",sub.getSimSlotIndex());
+                    data1.put("subscriptionId",sub.getSubscriptionId());
+                    dataAccounts.put(data1);
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
 
             JSONArray dataCalls = new JSONArray();
             for (TeleCall call : calls) {
@@ -32,7 +71,7 @@ public class TeleBroadcastEmiter {
             }
 
             JSONObject data = new JSONObject();
-            //data.put("accounts", dataAccounts);
+            data.put("accounts", dataAccounts);
             data.put("calls", dataCalls);
             //data.put("settings", settings);
 
