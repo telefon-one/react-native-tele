@@ -735,7 +735,7 @@ public class TeleService extends InCallService {
             Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url)); // CALL - набор. DIAL - показать через UI, но не набрать
             intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             
-            intent2.putExtra("gateway", 1);
+            intent2.putExtra("android.telecom.extra.gateway", 1);
 
             for (String s : simSlotName)
                 intent2.putExtra(s, simslot);
@@ -747,7 +747,7 @@ public class TeleService extends InCallService {
             try {
                 final Method getSubIdMethod = SubscriptionManager.class.getDeclaredMethod("getSubId", int.class);
                 getSubIdMethod.setAccessible(true);
-                final long subIdForSlot = ((long[]) getSubIdMethod.invoke(SubscriptionManager.class, simslot))[0];
+                final int subIdForSlot = ((int[]) getSubIdMethod.invoke(SubscriptionManager.class, simslot))[0];
         
                 final ComponentName componentName = new ComponentName("com.android.phone", "com.android.services.telephony.TelephonyConnectionService");
                 final PhoneAccountHandle phoneAccountHandle = new PhoneAccountHandle(componentName, String.valueOf(subIdForSlot));
@@ -757,11 +757,6 @@ public class TeleService extends InCallService {
             }
             
             getApplicationContext().startActivity(intent2);
-
-
-
-
-
 
 
 
