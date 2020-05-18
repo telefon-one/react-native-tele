@@ -1019,7 +1019,7 @@ public class TeleService extends InCallService {
             }
         }
 
-        throw new Exception("Call with specified \"" + id + "\" id not found");
+        throw new Exception("TeleCall with specified \"" + id + "\" id not found");
     }
 
     /*

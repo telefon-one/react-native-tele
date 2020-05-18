@@ -87,6 +87,11 @@ export default class Call {
 
         this._hashCode=hashCode;
         this._details=details;
+        
+        this._direction=direction;
+        if (direction=="0") this._direction="DIRECTION_INCOMING";
+        if (direction=="1") this._direction="DIRECTION_OUTGOING";
+        if (direction=="-1") this._direction="DIRECTION_UNKNOWN";
     }
 
     /**
