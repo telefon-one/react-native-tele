@@ -15,7 +15,12 @@ import java.lang.reflect.Method;
 import android.telephony.SubscriptionManager;
 import android.telephony.SubscriptionInfo;
 import android.telecom.PhoneAccountHandle;
+import android.telephony.TelephonyManager;
 
+//settings
+import android.os.Build;
+import android.provider.Settings;
+import android.provider.Settings.System;   
 
 public class TeleBroadcastEmiter {
 
@@ -39,7 +44,9 @@ public class TeleBroadcastEmiter {
             try {
                 JSONObject data1 = new JSONObject();
                 SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
-                
+                TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+
+
                 for (SubscriptionInfo sub : mSubscriptionManager.getActiveSubscriptionInfoList()) {
                     data1 = new JSONObject();
                     data1.put("mnc",sub.getMnc());
@@ -50,12 +57,32 @@ public class TeleBroadcastEmiter {
                     data1.put("carrierName",sub.getCarrierName());
                     data1.put("countryIso",sub.getCountryIso());
                     data1.put("displayName",sub.getDisplayName());
-                    data1.put("iccId",sub.getIccId());
+                    data1.put("iccid",sub.getIccId());
                     data1.put("iconTint",sub.getIconTint());
 
                     data1.put("number",sub.getNumber());
                     data1.put("simSlotIndex",sub.getSimSlotIndex());
                     data1.put("subscriptionId",sub.getSubscriptionId());
+                    
+                    data1.put("imei",telephonyManager.getDeviceId(sub.getSimSlotIndex()));
+                    
+
+                    
+                    //int subscriptionId = SubscriptionManager.from(mContext).getActiveSubscriptionInfoForSimSlotIndex(slotIndex).getSubscriptionId();
+                    int subscriptionId = sub.getSubscriptionId();
+                    try {
+                        Class c = Class.forName("android.telephony.TelephonyManager");
+                        Method m = c.getMethod("getSubscriberId", new Class[] {int.class});
+                        Object o = m.invoke(telephonyManager, new Object[]{subscriptionId});
+
+                        String subscriberId = (String) o;
+                        data1.put("imsi",subscriberId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
                     dataAccounts.put(data1);
                 }
 
@@ -70,10 +97,40 @@ public class TeleBroadcastEmiter {
                 dataCalls.put(call.toJson());
             }
 
+            JSONObject dataSettings = new JSONObject();
+            String androidID = System.getString(context.getContentResolver(),Settings.Secure.ANDROID_ID);
+            dataSettings.put("android_id", androidID);
+            dataSettings.put("android_sdk", Build.VERSION.SDK_INT);
+            dataSettings.put("android_security_patch", Build.VERSION.SECURITY_PATCH);
+            dataSettings.put("android_codename", Build.VERSION.CODENAME);
+            dataSettings.put("android_incremental", Build.VERSION.INCREMENTAL);
+            dataSettings.put("android_release", Build.VERSION.RELEASE);
+
+            dataSettings.put("manufacturer", Build.MANUFACTURER);
+            dataSettings.put("model", Build.MODEL);
+
+
+
+
             JSONObject data = new JSONObject();
             data.put("accounts", dataAccounts);
             data.put("calls", dataCalls);
-            //data.put("settings", settings);
+            data.put("settings", dataSettings);
+
+            /*
+    if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
+        deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    settings
+
+    import android.provider.Settings;
+import android.provider.Settings.System;   
+
+String androidID = System.getString(this.getContentResolver(),Secure.ANDROID_ID);
+Im
+*/
+
 
             Intent intent = new Intent();
             intent.setAction(TeleActions.EVENT_STARTED);
