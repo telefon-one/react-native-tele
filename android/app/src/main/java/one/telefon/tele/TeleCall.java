@@ -195,7 +195,7 @@ public class TeleCall /* extends Call */ {
     // }
 
 
-
+    @TargetApi(26)
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
@@ -235,7 +235,7 @@ public class TeleCall /* extends Call */ {
             
             // if (Build.VERSION.SDK_INT >= 26) {
 
-            
+                
             
             
             // -----
@@ -272,7 +272,10 @@ public class TeleCall /* extends Call */ {
             json.put("extras", ArgumentUtils.dumpBundle(details.getExtras()));
     
 
-            json.put("simSlot", 1); //TODO ADD
+            json.put("simSlot", call.getDetails().getAccountHandle().toString()); //TODO ADD
+            json.put("simSlot1", call.getDetails().getAccountHandle().getComponentName().toString()); //TODO ADD
+            json.put("simSlot2", call.getDetails().getAccountHandle().getId()); //TODO ADD
+
 
             // if (info.getState() == "PJSIP_INV_STATE_CONFIRMED" || info.getState() ==
             // "PJSIP_INV_STATE_DISCONNECTED") {

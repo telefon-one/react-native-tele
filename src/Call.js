@@ -12,7 +12,8 @@ export default class Call {
             remoteOfferer, remoteAudioCount, remoteVideoCount, audioCount, videoCount,
             lastStatusCode, lastReason, media, provisionalMedia, creationTime, connectTime, 
             details, hashCode, extras,
-            connectTimeMillis,creationTimeMillis,disconnectCause,direction
+            connectTimeMillis,creationTimeMillis,disconnectCause,direction,
+            simSlot,simSlot1,simSlot2
             
         }) {
         
@@ -21,6 +22,9 @@ export default class Call {
             console.log("disconnectCause",disconnectCause);
             console.log("direction",direction);
             console.log("extras",extras);
+            console.log("extras",extras);
+            console.log("simSlot1",simSlot1);
+            console.log("simSlot2",simSlot2);
 
 
         //console.log(details);
