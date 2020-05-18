@@ -39,8 +39,8 @@ import android.annotation.TargetApi;
 
 import android.content.ComponentName;
 
-import android.os.Method;
-import android.telecom.SubscriptionManager;
+import java.lang.reflect.Method;
+import android.telephony.SubscriptionManager;
 import android.telecom.PhoneAccountHandle;
 
 
