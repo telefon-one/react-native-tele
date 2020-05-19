@@ -42,3 +42,6 @@ RSSI
 TelephonyManager.listenGemini (phoneStateListener1, state, 0) for the 1st SIM, and
 
 TelephonyManager.listenGemini (phoneStateListener2, state, 1) for the 2nd SIM,
+
+
+mobilemode.setStreamVolume(AudioManager.STREAM_RING,audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),0);

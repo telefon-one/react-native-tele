@@ -735,8 +735,16 @@ public class TeleService extends InCallService {
             Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse(url)); // CALL - набор. DIAL - показать через UI, но не набрать
             intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             
+            /*
             intent2.putExtra("android.telecom.extra.gateway", 1);
-
+            intent2.putExtra("EXTRA_CALL_UUID", 888);
+            intent2.putExtra("zoomphoneid", 777);
+            */
+/*
+RT_HOLD CAPABILITY_MUTE], props: [Properties:]]","lastReason":"","state_android":1} }
+05-18 19:40:11.716 12505 12543 I ReactNativeJS: 'extras', '{"android.intent.extra.IMS_CONFERENCE_REQUEST":false,"android.telecom.extra.START_CALL_WITH_VIDEO_STATE":0,"touchPoint":{"x":174,"y":773},"EXTRA_CALL_NUMBER":"*100#","EXTRA_CALL_UUID":"0e67f43d-5419-4008-b315-4a128dfbe39b","zoomphoneid":0}'
+05-18 19:40:13.495   604 10248 W ActivityManager: Unable to start service Intent { cmp=com.callkeepdemo/io.wazo.callkeep.RNCallKeepBackgroundMessagingService (has extras) } U=0: not found
+*/
             for (String s : simSlotName)
                 intent2.putExtra(s, simslot);
             
