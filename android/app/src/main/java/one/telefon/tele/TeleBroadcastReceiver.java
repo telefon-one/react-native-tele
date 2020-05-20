@@ -87,6 +87,37 @@ public class TeleBroadcastReceiver extends BroadcastReceiver {
                 onCallback(intent);
                 break;
         }
+
+
+
+        String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+
+        if (state == null) {
+
+            //Outgoing call
+            String number = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+            Log.e("tag", "Outgoing number : " + number);
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+
+            Log.e("tag", "EXTRA_STATE_OFFHOOK");
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+
+            Log.e("tag", "EXTRA_STATE_IDLE");
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+
+            //Incoming call
+            String number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            Log.e("tag", "Incoming number : " + number);
+
+        } else {
+            Log.e("tag extra ", state);
+        }
+
+
+
     }
 /*
     private void onRegistrationChanged(Intent intent) {

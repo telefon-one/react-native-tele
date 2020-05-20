@@ -61,7 +61,7 @@ public class TeleService extends InCallService {
     // private boolean mUseSpeaker = false;
     private PowerManager mPowerManager;
     private PowerManager.WakeLock mIncallWakeLock;
-    // private TelephonyManager mTelephonyManager;
+    private TelephonyManager mTelephonyManager;
     private WifiManager mWifiManager;
     private WifiManager.WifiLock mWifiLock;
     // private boolean mGSMIdle;
@@ -234,14 +234,17 @@ public class TeleService extends InCallService {
             mWifiLock = mWifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF,
                     this.getPackageName() + "-wifi-call-lock");
             mWifiLock.setReferenceCounted(false);
-            /*
-             * mTelephonyManager = (TelephonyManager)
-             * getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE); mGSMIdle
-             * = mTelephonyManager.getCallState() == TelephonyManager.CALL_STATE_IDLE;
-             * IntentFilter phoneStateFilter = new
-             * IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-             * registerReceiver(mPhoneStateChangedReceiver, phoneStateFilter);
-             */
+            
+            mTelephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,mAudioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),0); 
+
+            //Ловим события по телефоннии?
+            IntentFilter phoneStateFilter = new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
+            registerReceiver(mPhoneStateChangedReceiver, phoneStateFilter);
+             
+
+            
+            
             mInitialized = true;
 
             job(new Runnable() {

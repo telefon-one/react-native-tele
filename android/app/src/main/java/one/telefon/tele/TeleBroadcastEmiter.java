@@ -118,6 +118,12 @@ public class TeleBroadcastEmiter {
             data.put("settings", dataSettings);
 
             /*
+            mTelephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+             
+             mGSMIdle = (mTelephonyManager.getCallState() == TelephonyManager.CALL_STATE_IDLE);
+            */
+
+            /*
     if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
         deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
     }

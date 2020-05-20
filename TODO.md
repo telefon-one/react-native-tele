@@ -211,3 +211,17 @@ https://github.com/CellularPrivacy/Android-IMSI-Catcher-Detector
 
 После TeleEndpoint Call - статистика по дропнутым ТЕЛЕ пакетам и SIP пакетам в лог звонка
 Logger в Endpoint
+
+
+
+Bad audio recording quality on some devices
+Reported that audio quality recorded on the microphone is bad and the speed is twice what it should be, it only happens on some devices. It could be fixed by setting audio mode via AudioManager to MODE_IN_COMMUNICATION in the application, e.g:
+
+AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+int original_mode = am.getMode();
+
+/* Set audio mode before using audio device, for example before making/answering a SIP call */
+am.setMode(AudioManager.MODE_IN_COMMUNICATION);
+...
+/* Restore back to the original mode after finished with audio device */
+am.setMode(original_mode);
