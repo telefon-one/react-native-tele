@@ -225,3 +225,74 @@ am.setMode(AudioManager.MODE_IN_COMMUNICATION);
 ...
 /* Restore back to the original mode after finished with audio device */
 am.setMode(original_mode);
+
+
+
+       String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+
+        if (state == null) {
+
+            //Outgoing call
+            String number = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+            Log.e("tag", "Outgoing number : " + number);
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+
+            Log.e("tag", "EXTRA_STATE_OFFHOOK");
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+
+            Log.e("tag", "EXTRA_STATE_IDLE");
+
+        } else if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+
+            //Incoming call
+            String number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            Log.e("tag", "Incoming number : " + number);
+
+        } else {
+            Log.e("tag extra ", state);
+        }
+
+
+
+
+
+
+        #define PJMEDIA_HAS_SRTP 1
+#define PJSIP_HAS_TLS_TRANSPORT 1
+
+ue was because pjsua_start(); was not called
+
+3
+
+Something silly: I needed to call
+
+pjsua.start()
+
+
+
+To handle it user need to include $(NDKRoot)/sources/android/support/include in the CFLAGS (user.mak).
+APP_PLATFORM=android-17
+
+
+You should use "-DANDROID_STL=c++_static" instead of -DANDROID_STL=gnustl_static
+
+
+
+https://stackoverflow.com/questions/2513713/how-to-use-3g-connection-in-android-application-instead-of-wi-fi
+https://stackoverflow.com/questions/25931334/send-request-over-mobile-data-when-wifi-is-on-android-l
+
+
+TRANSPORT_CELLULAR
+
+
+
+https://github.com/viaduck/openssl-cmake
+
+
+
+https://trac.pjsip.org/repos/wiki/Getting-Started/Android#OpenSSLSupport
+
+
+https://mi-house.ru/naushniki/naushniki-vkladyshi/adapter-dlya-naushnikov-xiaomi-mi-bluetooth-audio-receiver-ypjsq01jy.html?ymclid=15900717811726762190800002&utm_source=yandex.market&utm_medium=cpc&utm_campaign=61_naushniki&utm_term=YPJSQ01JY&utm_content=76_naushniki-vkladyshi
