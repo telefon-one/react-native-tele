@@ -65,7 +65,7 @@ public class TeleService extends InCallService {
     private WifiManager mWifiManager;
     private WifiManager.WifiLock mWifiLock;
     // private boolean mGSMIdle;
-    private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
+    //private BroadcastReceiver mPhoneStateChangedReceiver = new PhoneStateChangedReceiver();
 
     private Call currentCall;
     private int TeleCallIds=0;
@@ -239,7 +239,7 @@ public class TeleService extends InCallService {
             mAudioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,mAudioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),0); 
 
             //Ловим события по телефоннии?
-            registerReceiver(mPhoneStateChangedReceiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED););
+            //registerReceiver(mPhoneStateChangedReceiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
              
 
             
@@ -292,7 +292,7 @@ public class TeleService extends InCallService {
         }
         */
 
-        unregisterReceiver(mPhoneStateChangedReceiver);
+        //unregisterReceiver(mPhoneStateChangedReceiver);
         super.onDestroy();
     }
 

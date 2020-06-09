@@ -89,7 +89,7 @@ public class TeleBroadcastReceiver extends BroadcastReceiver {
         }
 
 
-
+/*
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 
         if (state == null) {
@@ -115,7 +115,7 @@ public class TeleBroadcastReceiver extends BroadcastReceiver {
         } else {
             Log.e("tag extra ", state);
         }
-
+*/
 
 
     }
