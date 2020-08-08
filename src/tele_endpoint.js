@@ -141,6 +141,9 @@ export default class TeleEndpoint extends EventEmitter {
       answerCall=(call)=>{ NativeModules.TeleModule.answerCall()};
       hangupCall=(call)=>{ NativeModules.TeleModule.hangupCall()};
 
+      sendEnvelope=(str)=>{ NativeModules.TeleModule.sendEnvelope(str)};
+
+
       /*
       hangupCall(call) {
         // TODO: Add possibility to pass code and reason for hangup.
